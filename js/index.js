@@ -27,22 +27,15 @@ function updateIcons() {
         musicIcon.className = "fa-solid fa-music";
         if (backgroundMusic.paused) backgroundMusic.play();
     } else {
-        // Music Off - You can use fa-music-slash or just adjust logic
-        musicIcon.className = "fa-solid fa-music"; // Keep icon, maybe strike through or opacity?
-        // Or specific off icon:
-        // musicIcon.className = "fa-solid fa-music"; 
-        // Let's add an explicit visual indicator or use a different icon if available.
-        // For standard FA free:
+        // Music Off
+        musicIcon.className = "fa-solid fa-music";
         musicIcon.style.opacity = "0.5";
-        // Or add a strike-through using CSS, or use "fa-slash" overlay.
-        // Let's stick to opacity/color change for simplicity or specific class if exists.
-        // Better: fa-volume-xmark for sound?
         backgroundMusic.pause();
     }
 
     // Explicit Off Icon approach
     if (!isMusicOn) {
-        musicBtn.classList.add('muted'); // Applies visual dimming/overlay from CSS if defined
+        musicBtn.classList.add('muted');
         musicIcon.style.opacity = "0.4";
     } else {
         musicBtn.classList.remove('muted');
@@ -59,7 +52,7 @@ function updateIcons() {
         // Sound Off
         soundIcon.className = "fa-solid fa-volume-xmark";
         soundBtn.classList.add('muted');
-        soundIcon.style.opacity = "0.4"; // Visual feedback
+        soundIcon.style.opacity = "0.4";
     }
 }
 
@@ -112,7 +105,13 @@ if (yesBtn) {
     yesBtn.addEventListener("click", () => {
 
         //reset all the game variables
-
+        //////////////////////////////////
+        //////////////////////////////////
+        //////////////////////////////////
+        //////////////////////////////////
+        //////////////////////////////////
+        //////////////////////////////////
+        //////////////////////////////////
 
         resetScreen.style.display = "none";
         document.querySelector(".options-screen").style.display = "none";
@@ -131,4 +130,124 @@ document.querySelector(".back-button").addEventListener("click", () => {
     document.querySelector(".options-screen").style.display = "none";
     document.querySelector(".main-screen").style.display = "block";
 });
+
+// Play Screen & Intro Video Logic
+let hasIntroPlayed = false;
+const playBtn = document.querySelector(".play-button");
+const introVideoContainer = document.querySelector(".intro-video");
+const introVideo = document.getElementById("introVideo");
+const skipBtn = document.querySelector(".skip-btn");
+const playScreenBackBtn = document.querySelector(".play-screen-back-button .back-button");
+
+// Play Button Click
+if (playBtn) {
+    playBtn.addEventListener("click", () => {
+        document.querySelector(".main-screen").style.display = "none";
+        document.querySelector(".options-screen").style.display = "none";
+
+        if (!hasIntroPlayed) {
+            // Show Video
+            introVideoContainer.style.display = "flex";
+            introVideo.play();
+            hasIntroPlayed = true;
+        } else {
+            // Show Play Screen directly
+            document.querySelector(".play-screen").style.display = "block";
+        }
+    });
+}
+
+// Video Ended Event
+if (introVideo) {
+    introVideo.addEventListener("ended", () => {
+        finishVideo();
+    });
+}
+
+// Skip Button
+if (skipBtn) {
+    skipBtn.addEventListener("click", () => {
+        introVideo.pause();
+        finishVideo();
+    });
+}
+
+function finishVideo() {
+    introVideoContainer.style.display = "none";
+    document.querySelector(".play-screen").style.display = "block";
+}
+
+// Play Screen Back Button
+if (playScreenBackBtn) {
+    playScreenBackBtn.addEventListener("click", () => {
+        document.querySelector(".play-screen").style.display = "none";
+        document.querySelector(".main-screen").style.display = "block";
+    });
+}
+
+// Slider Logic
+const boxes = document.querySelectorAll(".level-box");
+const leftArrow = document.querySelector(".arrow-left");
+const rightArrow = document.querySelector(".arrow-right");
+let currentLevelIndex = 0;
+
+function updateSlider() {
+    // Hide all, show current
+    boxes.forEach((box, index) => {
+        if (index === currentLevelIndex) {
+            box.classList.add("active");
+        } else {
+            box.classList.remove("active");
+        }
+    });
+
+    // Handle Arrows
+    leftArrow.disabled = currentLevelIndex === 0;
+    rightArrow.disabled = currentLevelIndex === boxes.length - 1;
+}
+
+// Initial State
+if (boxes.length > 0) {
+    updateSlider();
+}
+
+if (leftArrow) {
+    leftArrow.addEventListener("click", () => {
+        if (currentLevelIndex > 0) {
+            currentLevelIndex--;
+            updateSlider();
+        }
+    });
+}
+
+if (rightArrow) {
+    rightArrow.addEventListener("click", () => {
+        if (currentLevelIndex < boxes.length - 1) {
+            currentLevelIndex++;
+            updateSlider();
+        }
+    });
+}
+
+// Game Screen Transitions
+const box1 = document.querySelector(".box-1");
+const gameScreen = document.querySelector(".game-screen");
+const gameScreenBackBtn = document.querySelector(".game-screen-back-button .back-button");
+
+if (box1) {
+    box1.addEventListener("click", () => {
+        // Only trigger if active box (in case of overlap/hidden issues, though pointer-events handle it)
+        if (box1.classList.contains('active')) {
+            document.querySelector(".play-screen").style.display = "none";
+            gameScreen.style.display = "block";
+        }
+    });
+}
+
+if (gameScreenBackBtn) {
+    gameScreenBackBtn.addEventListener("click", () => {
+        gameScreen.style.display = "none";
+        document.querySelector(".play-screen").style.display = "block";
+    });
+}
 
