@@ -1,14 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/media.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Cut The Rope</title>
 </head>
+
 <body>
+    <main class="main-screen">
+        <div class="shadow-img">
+            <img src="./images/shadow.png" alt="rotating shadow">
+        </div>
+        <div class="start-screen">
+            <div class="logo">
+                <img src="./images/ph_logo.png" alt="logo of the game">
+            </div>
+            <div class="start-screen-buttons">
+                <button class="play-button">
+                    <img src="./images/play.png" style="width: 81px; height: 63px;" />
+                </button>
+                <button class="options-button">
+                    <img src="./images/options.png" style="width: 130px; height: 63px;" />
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <main class="options-screen">
+        <div class="shadow-img">
+            <img src="./images/shadow.png" alt="rotating shadow">
+        </div>
+        <div class="options-screen-img">
+            <img src="./images/options.png" style="width: 300px; height: 150px;" />
+        </div>
+        <div class="options-screen-buttons">
+            <!-- sound button -->
+            <button class="sound-button">
+                <i class="fa-solid fa-volume-high"></i>
+            </button>
+            <!-- music button -->
+            <button class="music-button">
+                <i class="fa-solid fa-music"></i>
+            </button>
+        </div>
+        <!-- reset button -->
+        <div class="options-screen-reset">
+            <button>
+                <img src="./images/reset.png" style="width: 250px; height: 100px;" />
+            </button>
+        </div>
+        <!-- back button -->
+        <div class="options-screen-back-button">
+            <button class="back-button">
+
+            </button>
+        </div>
+    </main>
+
+    <main class="reset-screen">
+        <div class="reset-popup">
+            <img src="./images/popupouter.png" class="popup-outer" />
+            <img src="./images/popupinner.jpg" class="popup-inner" />
+
+            <div class="reset-content">
+                <img src="./images/resetQ.png" class="reset-question" />
+                <div class="reset-buttons">
+                    <button class="yes-button">
+                        <img src="./images/yes.png" />
+                    </button>
+                    <button class="no-button">
+                        <img src="./images/no.png" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
 
     <script src="./js/index.js"></script>
 </body>
+
 </html>
