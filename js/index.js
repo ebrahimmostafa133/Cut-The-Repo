@@ -125,10 +125,18 @@ document.querySelector(".options-button").addEventListener("click", () => {
     document.querySelector(".options-screen").style.display = "flex";
 });
 
-//add event listener to back button
-document.querySelector(".back-button").addEventListener("click", () => {
-    document.querySelector(".options-screen").style.display = "none";
-    document.querySelector(".main-screen").style.display = "block";
+//back button handler (for buttons with data-back-to attribute)
+document.querySelectorAll(".back-button[data-back-to]").forEach(btn => {
+    btn.addEventListener("click", () => {
+        // Hide current screen
+        const currentScreen = btn.closest("[class$='-screen']");
+        if (currentScreen) currentScreen.style.display = "none";
+
+        // Show target screen
+        const target = btn.dataset.backTo;
+        const targetScreen = document.querySelector(`.${target}`);
+        if (targetScreen) targetScreen.style.display = "block";
+    });
 });
 
 // Play Screen & Intro Video Logic
@@ -137,7 +145,6 @@ const playBtn = document.querySelector(".play-button");
 const introVideoContainer = document.querySelector(".intro-video");
 const introVideo = document.getElementById("introVideo");
 const skipBtn = document.querySelector(".skip-btn");
-const playScreenBackBtn = document.querySelector(".play-screen-back-button .back-button");
 
 // Play Button Click
 if (playBtn) {
@@ -177,13 +184,7 @@ function finishVideo() {
     document.querySelector(".play-screen").style.display = "block";
 }
 
-// Play Screen Back Button
-if (playScreenBackBtn) {
-    playScreenBackBtn.addEventListener("click", () => {
-        document.querySelector(".play-screen").style.display = "none";
-        document.querySelector(".main-screen").style.display = "block";
-    });
-}
+// Play Screen Back Button - now handled by universal back button handler
 
 // Slider Logic
 const boxes = document.querySelectorAll(".level-box");
@@ -232,7 +233,6 @@ if (rightArrow) {
 // Game Screen Transitions
 const box1 = document.querySelector(".box-1");
 const gameScreen = document.querySelector(".game-screen");
-const gameScreenBackBtn = document.querySelector(".game-screen-back-button .back-button");
 
 if (box1) {
     box1.addEventListener("click", () => {
@@ -244,10 +244,5 @@ if (box1) {
     });
 }
 
-if (gameScreenBackBtn) {
-    gameScreenBackBtn.addEventListener("click", () => {
-        gameScreen.style.display = "none";
-        document.querySelector(".play-screen").style.display = "block";
-    });
-}
+// Game Screen Back Button - now handled by universal back button handler
 
