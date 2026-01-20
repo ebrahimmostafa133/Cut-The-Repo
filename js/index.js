@@ -184,7 +184,6 @@ function finishVideo() {
     document.querySelector(".play-screen").style.display = "block";
 }
 
-// Play Screen Back Button - now handled by universal back button handler
 
 // Slider Logic
 const boxes = document.querySelectorAll(".level-box");
@@ -244,5 +243,4 @@ if (box1) {
     });
 }
 
-// Game Screen Back Button - now handled by universal back button handler
 
