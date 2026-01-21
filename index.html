@@ -17,7 +17,7 @@
         </div>
         <div class="start-screen">
             <div class="logo">
-                <img src="./images/ph_logo.png" alt="logo of the game">
+                <img src="./images/ph_logo.png" alt="logo of the level">
             </div>
             <div class="start-screen-buttons">
                 <button class="play-button">
@@ -55,7 +55,7 @@
         </div>
         <!-- back button -->
         <div class="options-screen-back-button">
-            <button class="back-button">
+            <button class="back-button" data-back-to="main-screen">
 
             </button>
         </div>
@@ -79,15 +79,132 @@
             </div>
         </div>
     </main>
+    <!-- Intro Video Container -->
+    <div class="intro-video">
+        <video id="introVideo" width="100%" height="100%">
+            <source src="./video/intro_1024.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <button class="skip-btn">Skip</button>
+    </div>
 
+    <main class="play-screen">
+        <div class="shadow-img">
+            <img src="./images/shadow.png" alt="rotating shadow">
+        </div>
 
-    <!-- Game Screen (your canvas) -->
+        <div class="play-screen-content">
+            <!-- Left Arrow -->
+            <button class="arrow-left">
+                <i class="fa-solid fa-caret-left"></i>
+            </button>
+            <!-- Center Box Slider -->
+            <div class="slider-container">
+                <!-- Box 1: Om Nom -->
+                <div class="level-box box-1 active">
+                    <div class="box-label">1. Cardboard Box</div>
+                    <div class="omnom-container">
+                        <img src="./images/pin-omnom.png" alt="Om Nom" class="omnom">
+                    </div>
+                </div>
+
+                <!-- Box 2: More Levels -->
+                <div class="level-box box-2">
+                    <div class="more-text">
+                        <span>Next Level Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Arrow -->
+            <button class="arrow-right">
+                <i class="fa-solid fa-caret-right"></i>
+            </button>
+        </div>
+
+        <!-- Back Button -->
+        <div class="play-screen-back-button">
+            <button class="back-button" data-back-to="main-screen">
+
+            </button>
+        </div>
+    </main>
+
     <main class="game-screen">
+        <div class="shadow-img">
+            <img src="./images/shadow.png" alt="rotating shadow">
+        </div>
+        <!-- Tape Roll Transition Overlay -->
+        <div class="tape-roll-overlay">
+            <img src="./images/taperoll.png" alt="Tape Roll">
+        </div>
+        <div class="levels-screen">
+            <!-- Level 1: Unlocked -->
+            <div class="level-1 level-item unlocked">
+                <span class="level-number">1</span>
+                <img src="./images/level_bgd.png" alt="level tape" class="level-bg">
+                <div class="level-stars">
+                    <div class="star-display stars-3"></div>
+                </div>
+            </div>
+            <!-- Level 2: Locked -->
+            <div class="level-2 level-item locked">
+                <span class="level-number">2</span>
+                <img src="./images/level_bgd.png" alt="level tape" class="level-bg-lock">
+                <div class="level-stars">
+                    <!-- Stars hidden when locked -->
+                </div>
+            </div>
+            <!-- Level 3: Locked -->
+            <div class="level-3 level-item locked">
+                <span class="level-number">3</span>
+                <img src="./images/level_bgd.png" alt="level tape" class="level-bg-lock">
+                <div class="level-stars">
+                    <!-- Stars hidden when locked -->
+                </div>
+            </div>
+        </div>
+        <div class="game-screen-back-button">
+            <button class="back-button" data-back-to="play-screen">
+            </button>
+        </div>
+
+        <!-- Box Cutter Transition Overlay -->
+        <div class="box-cutter-overlay">
+            <img src="./images/boxcutter.png" alt="Box Cutter">
+        </div>
+    </main>
+
+    <main class="level1-screen">
+        <div class="level-screen-back-button">
+            <button class="back-button">
+            </button>
+        </div>
+    </main>
+
+    <main class="level2-screen">
+        <div class="level-screen-back-button">
+            <button class="back-button">
+            </button>
+        </div>
+    </main>
+
+    <main class="level3-screen">
+        <div class="level-screen-back-button">
+            <button class="back-button">
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Canvas Screen (physics engine) -->
+    <main class="canvas-screen">
         <canvas id="game-canvas"></canvas>
     </main>
 
 
     <script src="./js/index.js"></script>
+    <script src="./js/levels/levels.js"></script>
     <script type="module" src="./js/physics/gameloop.js"></script>
 </body>
 
