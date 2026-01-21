@@ -38,9 +38,8 @@ body {
 
 
 .main-screen,
-.options-screen {
-   /* display: none;*/
-    /* Hidden for now - testing game screen */
+.options-screen,
+.play-screen {
     width: 100%;
     height: 100vh;
     background-image: url(../images/startbg.jpg);
@@ -51,13 +50,216 @@ body {
     overflow: hidden;
 }
 
+.play-screen {
+    background-image: url(../images/menubg.jpg);
+    /* User requested option screen BG */
+    display: none;
+    /* Initially hidden */
+}
+
+/* Intro Video Overlay */
+.intro-video {
+    display: none;
+    /* Toggled by JS */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 200;
+    /* Above everything */
+    background: black;
+    justify-content: center;
+    align-items: center;
+}
+
+.skip-btn {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    padding: 10px 20px;
+    font-size: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+    z-index: 201;
+}
+
+.skip-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Play Screen Content Layout */
+/* Play Screen Content Layout */
+.play-screen-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: 150px;
+    /* Increased gap */
+    width: 100%;
+}
+
+.slider-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 500px;
+    /* Match box size */
+}
+
+/* Level Box (Shared) */
+.level-box {
+    width: 500px;
+    height: 500px;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: none;
+    /* Hidden by default for slider */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.level-box.active {
+    display: flex;
+    /* Only active box shown */
+    animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bouncy check effect */
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    70% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.box-label {
+    position: absolute;
+    top: 150px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 50px;
+    font-family: 'gooddogplain', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 20;
+}
+
+/* Box 1 */
+.box-1 {
+    /* Background moved to ::after for layering */
+    position: relative;
+}
+
+.box-1:hover {
+    cursor: url(../images/handcursor.png), auto;
+}
+
+.box-1::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/box1_bgd.png);
+    background-size: 100% 100%;
+    z-index: 2;
+    /* Content is z-index 1 */
+    pointer-events: none;
+}
+
+/* Box 2 */
+.box-2 {
+    background-image: url(../images/boxmore_bgd.png);
+}
+
+.more-text {
+    width: 50%;
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    font-family: 'gooddogplain', sans-serif;
+    transform: rotate(-5deg);
+}
+
+.omnom-container {
+    width: 220px;
+    height: 220px;
+    top: 125px;
+    left: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.omnom {
+    width: 90%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Arrows */
+.arrow-left,
+.arrow-right {
+    background: none;
+    border: none;
+    font-size: 160px;
+    /* Adjusted size */
+    color: #ece3dc;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.arrow-left:disabled,
+.arrow-right:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.arrow-left:not(:disabled):hover,
+.arrow-right:not(:disabled):hover {
+    transform: scale(1.2);
+    color: #915922;
+}
+
+.play-screen-back-button {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+}
+
 /* ================================================ */
-/* game screen (canvas) */
+/* canvas screen (physics engine) */
 /* ================================================ */
 
-.game-screen {
+.canvas-screen {
     display: none;
-    /* Hidden for now - testing game screen */
     width: 100%;
     height: 100vh;
     position: relative;
@@ -324,4 +526,242 @@ i {
 .yes-button:hover,
 .no-button:hover {
     background-position: 0 100%;
+}
+
+/* ================================================ */
+/* levels screen */
+/* ================================================ */
+
+/* Game Screen Container */
+.game-screen {
+    /* Three backgrounds: center tape (TOP), left pattern, right pattern */
+    background-image:
+        url(../images/leveltape.png),
+        url(../images/levelbg1.jpg),
+        url(../images/levelbg1.jpg);
+    background-position:
+        center top,
+        left top,
+        right top;
+    background-repeat:
+        repeat-y,
+        repeat-y,
+        repeat-y;
+    background-size:
+        auto auto,
+        50% auto,
+        50% auto;
+    display: none;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+}
+
+
+/* Levels Container */
+.levels-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 55px;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 5;
+    padding: 60px 0;
+}
+
+/* Level Item Container */
+.level-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    width: 160px;
+    height: 180px;
+    cursor: url(../images/handcursor.png), auto;
+}
+
+.level-item.unlocked:hover {
+    transform: scale(1.05);
+}
+
+.level-item.locked {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* Level Background Images */
+.level-bg {
+    width: 100%;
+    height: 90%;
+    object-fit: cover;
+    /* Show top half (unlocked state) */
+    object-position: center 0%;
+    display: block;
+}
+
+.level-bg-lock {
+    width: 100%;
+    height: 90%;
+    object-fit: cover;
+    /* Show bottom half (locked state) */
+    object-position: center 95%;
+    display: block;
+}
+
+/* Level Number */
+.level-number {
+    position: absolute;
+    top: 30px;
+    font-size: 48px;
+    font-weight: bold;
+    color: #eae1da;
+    font-family: 'gooddogplain', sans-serif;
+    z-index: 10;
+    pointer-events: none;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Lock Icon */
+.lock-icon {
+    position: absolute;
+    bottom: 30px;
+    width: 40px;
+    height: 40px;
+    z-index: 10;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* Stars Container - Updated for Sprite */
+.level-stars {
+    position: absolute;
+    bottom: 20px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.level-item.locked .level-stars {
+    display: none;
+}
+
+/* Star Sprite Logic */
+.star-display {
+    width: 80px;
+    /* Estimated width */
+    height: 45px;
+    /* Estimated height for one row */
+    background-image: url(../images/options_stars_bgd.png);
+    background-size: 100% auto;
+    /* Fit width, stack vertically */
+    background-repeat: no-repeat;
+    display: block;
+}
+
+/* 4 Rows: 0, 1, 2, 3 stars */
+.stars-0 {
+    background-position: 0 0;
+}
+
+/* Row 1 */
+.stars-1 {
+    background-position: 0 33.33%;
+}
+
+/* Row 2 */
+.stars-2 {
+    background-position: 0 66.66%;
+}
+
+/* Row 3 */
+.stars-3 {
+    background-position: 0 100%;
+}
+
+/* Row 4 */
+
+.level-item.locked .level-number {
+    display: none;
+}
+
+.game-screen-back-button {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    z-index: 20;
+}
+
+
+/* Box Cutter Overlay Transition */
+.box-cutter-overlay {
+    position: absolute;
+    bottom: -100%;
+    left: 82%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    transition: bottom 2s ease-in-out;
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+}
+
+.box-cutter-overlay.active {
+    bottom: 100%;
+}
+
+/* Tape Roll Overlay Transition */
+.tape-roll-overlay {
+    position: absolute;
+    top: 110%;
+    left: 49.5%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    transition: top 1.5s ease-in-out;
+    pointer-events: none;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.tape-roll-overlay.active {
+    top: -10%;
+    /* Slide down to cover screen */
+}
+
+.tape-roll-overlay img {
+    width: 120px;
+    height: 100px;
+    display: block;
+}
+
+/* ================================================ */
+/* Level1 Screen */
+/* ================================================ */
+
+.level1-screen,
+.level2-screen,
+.level3-screen {
+    display: none;
+    background-image: url(../images/bgr_01_p1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: none;
+    width: 100%;
+    height: 100vh;
+}
+
+.level-screen-back-button {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    z-index: 20;
 }
