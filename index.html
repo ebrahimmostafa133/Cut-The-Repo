@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./css/states.css">
     <link rel="stylesheet" href="./css/canvas.css">
     <link rel="stylesheet" href="./css/stars.css">
+    <link rel="stylesheet" href="./css/complete-screen.css">
     <link rel="stylesheet" href="./css/media.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Cut The Rope</title>
@@ -252,11 +253,23 @@
         </div>
     </main>
 
+    <!-- Complete Screen -->
+    <main class="complete-screen">
+        <span>Congratulations!</span>
+        <p>you have completed all levels</p>
+        <div class="complete-screen-content">
+            <img src="./images/gamecomplete.jpg" alt="Complete">
+        </div>
+        <div class="complete-text">
+            <p>Press Enter to return to Home</p>
+        </div>
+    </main>
 
     <script type="module" src="./js/levels/levels.js"></script>
     <script type="module" src="./js/index.js"></script>
     <script type="module" src="./js/physics/gameloop.js"></script>
     <script src="./js/states/gameState.js"></script>
+    <script src="./js/levels/complete.js"></script>
 </body>
 
 </html>
