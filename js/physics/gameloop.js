@@ -2,7 +2,7 @@ import { init, clear, drawBg, circle, line, rope, img, loadImg, getSize, swipeSl
 import { gravity, move, ropeLimit, slow } from './physics.js';
 import { absToRelX, absToRelY } from './coords.js';
 import { setGameObjects, recalculatePositions } from './resize.js';
-
+import { checkForCollsions } from './collisions.js';
 let running = false;
 let paused = false;
 let frameId = null;
@@ -95,8 +95,20 @@ function update(dt) {
     const allCut = ropes.every(r => r.cut);
 
     gravity(candy, dt);
-    //TODO: check for collisions
+
     move(candy, dt);
+    
+    const collisionResult = checkForCollsions(candy, starsRel, frog);
+
+    if (collisionResult.frogHit) {
+        endGame(true);   // WIN
+        return;
+    }
+    
+    if (isCandyLost()) {
+        endGame(false);  // OOPS
+        return;
+    }
 
     // Only apply rope constraints if not all cut
     if (!allCut) {
@@ -334,10 +346,25 @@ export function resume() {
     }
 }
 
+function isCandyLost() {
+    const { h } = getSize();
+    return candy.y > h + 100;  // fell below screen
+}
+
 // Export for external use (Zeyad's input.js)
 export function cutRopeAt(mouseX, mouseY) {
     swipePath.push({ x: mouseX, y: mouseY });
     checkSwipeCuts();
+}
+
+function endGame(won) {
+    stop();
+    const starsCollected = starsRel.filter(s => s.got).length;
+    
+    console.log(won ? "WIN!" : "OOPS!");
+    console.log("Stars:", starsCollected);
+    
+    // TODO: show result screen with starsCollected
 }
 
 start();
