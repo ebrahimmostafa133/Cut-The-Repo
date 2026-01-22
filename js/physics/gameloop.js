@@ -26,9 +26,9 @@ function setup(levelData = null) {
     if (!levelData) {
         levelData = {
             ropes: [
-                { anchorX: 0.25, anchorY: 80, len: 200 },   // Left - PRIMARY (straight)
-                { anchorX: 0.45, anchorY: 60, len: 450 },   // Center - curved (> 300 needed)
-                { anchorX: 0.65, anchorY: 60, len: 600 }    // Right - curved (> 460 needed)
+                { anchorX: 0.25, anchorY: 0.05, len: 0.2 },   // Left - PRIMARY (straight)
+                { anchorX: 0.45, anchorY: 0.04, len: 0.45 },   // Center - curved
+                { anchorX: 0.65, anchorY: 0.04, len: 0.6 }    // Right - curved
             ],
             stars: [
                 { x: 0.30, y: 0.50 },
@@ -39,32 +39,32 @@ function setup(levelData = null) {
 
     // First, find the primary rope (shortest defined, or first)
     const primary = levelData.ropes[0];
-    const primaryAnchor = { x: w * primary.anchorX, y: primary.anchorY };
+    const primaryAnchor = { x: w * primary.anchorX, y: h * primary.anchorY };
 
     // Candy hangs directly below primary anchor at full rope length
     const candyX = primaryAnchor.x;
-    const candyY = primaryAnchor.y + primary.len;
+    const candyY = primaryAnchor.y + h * primary.len;
 
     // Calculate lengths for other ropes so they can reach the candy
     ropes = levelData.ropes.map((r, i) => {
-        const anchor = { x: w * r.anchorX, y: r.anchorY };
+        const anchor = { x: w * r.anchorX, y: h * r.anchorY };
 
         if (i === 0) {
             // Primary rope - use defined length
-            return { anchor, len: r.len, cut: false };
+            return { anchor, len: h * r.len, cut: false };
         } else {
             // Other ropes - calculate length to reach candy + some slack for curve
             const dx = candyX - anchor.x;
             const dy = candyY - anchor.y;
             const distToCandy = Math.sqrt(dx * dx + dy * dy);
-            const len = r.len || (distToCandy + 50);  // Add slack for curve
+            const len = h * r.len || (distToCandy + 50);
             return { anchor, len, cut: false };
         }
     });
 
     candy = {
         x: primaryAnchor.x,
-        y: primaryAnchor.y + primary.len,
+        y: primaryAnchor.y + h * primary.len,
         vx: 0,
         vy: 0,
         r: 25
@@ -170,7 +170,7 @@ function draw() {
     const { w, h } = getSize();
 
     clear();
-    drawBg('#87CEEB');
+    drawBg('#00000000');
 
     // Draw ropes
     ropes.forEach(r => {
