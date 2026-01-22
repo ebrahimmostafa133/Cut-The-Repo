@@ -73,7 +73,8 @@
     background-position: 0 100%;
 }
 
-.options-screen-back-button {
+.options-screen-back-button,
+.level-screen-back-button {
     position: absolute;
     bottom: 30px;
     left: 30px;
