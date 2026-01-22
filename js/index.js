@@ -1,5 +1,5 @@
 // Audio State
-import { populateBoxesList, populateLevelsList } from "./levels/levels_dynamic.js";
+import { populateBoxesList, populateLevelsList } from "./levels/levels.js";
 import { LEVELS_STATUS } from "./levels/levels_info.js";
 let isSoundOn = true;
 let isMusicOn = true;
