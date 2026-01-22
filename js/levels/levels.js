@@ -1,6 +1,6 @@
 // Use distinct variable names to avoid conflicts with global scope (if any)
 import { LEVELS_INFO } from "./levels_info.js";
-
+import { setupLevel } from "./level_screen.js";
 const boxes = LEVELS_INFO.boxes;
 
 const boxesListELement = document.querySelector("div.slider-container")
@@ -149,13 +149,13 @@ function transitionToLevelScreen(level) {
         });
 
         // Show selected level screen
-        const targetScreen = document.querySelector(`.level${level.id}-screen`);
+        const targetScreen = document.querySelector(`.level1-screen`);
         if (targetScreen) {
             targetScreen.style.display = "block";
         } else {
-            console.warn(`Target screen .level${level.id}-screen not found.`);
+            console.warn(`Target screen .level1-screen not found.`);
         }
-
+        
     }, 2000); // Switch halfway (1s)
 
     setTimeout(() => {
@@ -164,6 +164,8 @@ function transitionToLevelScreen(level) {
     }, 2000); // Reset after full animation
 
     window.gameState.currentLevel = level;
+    console.log(level)
+    setupLevel();
 }
 
 

@@ -227,7 +227,7 @@ function loop(t) {
     frameId = requestAnimationFrame(loop);
 }
 
-export async function start() {
+export async function start(levelData) {
     if (running) return;
 
     // Wait for DOM to be fully ready
@@ -260,7 +260,7 @@ export async function start() {
 
     await waitForCanvas();
 
-    setup();
+    setup(levelData);
     running = true;
     paused = false;
     lastT = performance.now();
@@ -337,4 +337,4 @@ export function cutRopeAt(mouseX, mouseY) {
     checkSwipeCuts();
 }
 
-start();
+
