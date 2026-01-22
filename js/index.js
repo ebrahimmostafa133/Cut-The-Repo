@@ -1,4 +1,5 @@
 // Audio State
+import { populateBoxesList } from "./levels/levels_dynamic.js";
 let isSoundOn = true;
 let isMusicOn = true;
 
@@ -26,7 +27,6 @@ const skipBtn = document.querySelector(".skip-btn");
 const backgroundMusic = new Audio("./audio/game_music.mp3");
 
 // Game Screen Transitions
-const box1 = document.querySelector(".box-1");
 const gameScreen = document.querySelector(".game-screen");
 
 
@@ -198,6 +198,7 @@ function finishVideo() {
 
 
 // Slider Logic
+const validBoxesElements = populateBoxesList();
 const boxes = document.querySelectorAll(".level-box");
 const leftArrow = document.querySelector(".arrow-left");
 const rightArrow = document.querySelector(".arrow-right");
@@ -240,16 +241,15 @@ if (rightArrow) {
         }
     });
 }
-
+console.log(boxes)
+console.log(validBoxesElements)
 // Game Screen Transitions
-if (box1) {
-    box1.addEventListener("click", () => {
-        // Only trigger if active box (in case of overlap/hidden issues, though pointer-events handle it)
-        if (box1.classList.contains('active')) {
-            document.querySelector(".play-screen").style.display = "none";
-            gameScreen.style.display = "block";
-        }
+validBoxesElements.forEach(boxElement => {
+    boxElement.addEventListener("click", () => {
+        document.querySelector(".play-screen").style.display = "none";
+        gameScreen.style.display = "block";
     });
-}
+})
+
 
 
