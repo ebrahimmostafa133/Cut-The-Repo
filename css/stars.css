@@ -1,0 +1,40 @@
+/* Star Result Container using global classes */
+/* Stars usage in Win Screen */
+
+.star-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.star {
+    width: 65px;
+    height: 60px;
+    background-image: url(../images/star_result.png);
+    background-size: 100% 200%;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-position 0.3s ease;
+}
+
+.star-2 {
+    transform: translateY(-20px);
+}
+
+
+.stars-1 .star-1 {
+    background-position: 0 0;
+}
+
+.stars-2 .star-1,
+.stars-2 .star-2 {
+    background-position: 0 0;
+}
+
+.stars-3 .star-1,
+.stars-3 .star-2,
+.stars-3 .star-3 {
+    background-position: 0 0;
+}
