@@ -1,3 +1,5 @@
+import { recalculatePositions } from './resize.js';
+
 let cvs = null;
 let ctx = null;
 
@@ -5,7 +7,10 @@ export function init() {
     cvs = document.getElementById('game-canvas');
     if (!cvs) return false;
     ctx = cvs.getContext('2d');
-    resize();
+    
+    cvs.width = window.innerWidth;
+    cvs.height = window.innerHeight;
+
     window.addEventListener('resize', resize);
     return true;
 }
@@ -14,6 +19,8 @@ export function resize() {
     if (!cvs) return;
     cvs.width = window.innerWidth;
     cvs.height = window.innerHeight;
+
+    recalculatePositions();
 }
 
 export function getSize() {
