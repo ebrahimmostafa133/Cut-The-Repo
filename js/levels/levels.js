@@ -7,54 +7,6 @@ const lvlAppGameScreen = document.querySelector(".game-screen");
 const lvlAppLevelsScreen = document.querySelector(".levels-screen");
 const lvlAppGameBackBtnContainer = document.querySelector(".game-screen-back-button");
 
-// 1. Forward Transition (Game -> Level)
-lvlAppUnlockedLevels.forEach((level) => {
-    level.addEventListener("click", () => {
-        // Extract level number
-        const levelClass = Array.from(level.classList).find(cls => cls.startsWith("level-") && cls !== "level-item");
-        const levelNumber = levelClass ? levelClass.split("-")[1] : null;
-
-        if (!levelNumber) {
-            console.error("Could not determine level number from classes:", level.classList);
-            return;
-        }
-
-        // Hide Game Screen Back Button (Container)
-        if (lvlAppGameBackBtnContainer) lvlAppGameBackBtnContainer.style.display = "none";
-        // Hide the Levels Screen container
-        if (lvlAppLevelsScreen) lvlAppLevelsScreen.style.display = "none";
-
-        // Start overlay animation
-        if (lvlAppBoxCutterOverlay) lvlAppBoxCutterOverlay.classList.add("active");
-
-        setTimeout(() => {
-            // Hide the main game screen
-            if (lvlAppGameScreen) lvlAppGameScreen.style.display = "none";
-
-            // Hide all level screens safely (only those that are actual level screens)
-            document.querySelectorAll("[class$='-screen']").forEach(screen => {
-                // Check if the screen is a level screen (e.g., level1-screen, level2-screen, etc.)
-                if (screen.classList.contains(`level${levelNumber}-screen`) || screen.classList.contains("level1-screen") || screen.classList.contains("level2-screen") || screen.classList.contains("level3-screen")) {
-                    screen.style.display = "none";
-                }
-            });
-
-            // Show selected level screen
-            const targetScreen = document.querySelector(`.level${levelNumber}-screen`);
-            if (targetScreen) {
-                targetScreen.style.display = "block";
-            } else {
-                console.warn(`Target screen .level${levelNumber}-screen not found.`);
-            }
-
-        }, 2000); // Switch halfway (1s)
-
-        setTimeout(() => {
-            // Reset overlay after full animation
-            if (lvlAppBoxCutterOverlay) lvlAppBoxCutterOverlay.classList.remove("active");
-        }, 2000); // Reset after full animation
-    });
-});
 
 // 2. Reverse Transition (Level -> Game)
 const lvlAppLevelBackButtons = document.querySelectorAll(".level-screen-back-button");

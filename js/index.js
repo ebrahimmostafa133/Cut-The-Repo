@@ -1,5 +1,6 @@
 // Audio State
-import { populateBoxesList } from "./levels/levels_dynamic.js";
+import { populateBoxesList, populateLevelsList } from "./levels/levels_dynamic.js";
+import { LEVELS_STATUS } from "./levels/levels_info.js";
 let isSoundOn = true;
 let isMusicOn = true;
 
@@ -241,15 +242,28 @@ if (rightArrow) {
         }
     });
 }
-console.log(boxes)
-console.log(validBoxesElements)
+
+
+
 // Game Screen Transitions
-validBoxesElements.forEach(boxElement => {
+validBoxesElements.forEach((boxElement, index) => {
     boxElement.addEventListener("click", () => {
+        window.gameState.selectedBoxId = index;
+        // Transition to Level Selector screen
+
         document.querySelector(".play-screen").style.display = "none";
         gameScreen.style.display = "block";
+        populateLevelsList(window.gameState.selectedBoxId);
     });
 })
 
+function initGameState() {
+    window.gameState = {
+        levelsStatus: [...LEVELS_STATUS],
+        selectedBoxId: null,
+        currentLevel: null
+    }
+}
 
 
+initGameState();
