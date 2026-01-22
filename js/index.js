@@ -2,8 +2,35 @@
 let isSoundOn = true;
 let isMusicOn = true;
 
+// All Buttons
+const allButtons = document.querySelectorAll("button");
+
+// Sound Buttons Logic
+const musicBtn = document.querySelector('.music-button');
+const soundBtn = document.querySelector('.sound-button');
+
+// Reset Popup Logic
+const resetScreen = document.querySelector(".reset-screen");
+const resetBtn = document.querySelector(".options-screen-reset button");
+const noBtn = document.querySelector(".no-button");
+const yesBtn = document.querySelector(".yes-button");
+
+// Play Screen & Intro Video Logic
+let hasIntroPlayed = false;
+const playBtn = document.querySelector(".play-button");
+const introVideoContainer = document.querySelector(".intro-video");
+const introVideo = document.getElementById("introVideo");
+const skipBtn = document.querySelector(".skip-btn");
+
 // Music Setup
 const backgroundMusic = new Audio("./audio/game_music.mp3");
+
+// Game Screen Transitions
+const box1 = document.querySelector(".box-1");
+const gameScreen = document.querySelector(".game-screen");
+
+
+
 backgroundMusic.loop = true;
 
 // Attempt Autoplay
@@ -14,9 +41,6 @@ backgroundMusic.play().catch(error => {
     }, { once: true });
 });
 
-// Sound Buttons Logic
-const musicBtn = document.querySelector('.music-button');
-const soundBtn = document.querySelector('.sound-button');
 
 function updateIcons() {
     const musicIcon = musicBtn.querySelector('i');
@@ -73,7 +97,6 @@ if (soundBtn) {
 }
 
 // Global Tap Sound
-const allButtons = document.querySelectorAll("button");
 allButtons.forEach(button => {
     button.addEventListener("click", () => {
         if (isSoundOn) {
@@ -83,11 +106,6 @@ allButtons.forEach(button => {
     });
 });
 
-// Reset Popup Logic
-const resetScreen = document.querySelector(".reset-screen");
-const resetBtn = document.querySelector(".options-screen-reset button");
-const noBtn = document.querySelector(".no-button");
-const yesBtn = document.querySelector(".yes-button");
 
 if (resetBtn) {
     resetBtn.addEventListener("click", () => {
@@ -140,12 +158,6 @@ document.querySelectorAll(".back-button[data-back-to]").forEach(btn => {
 });
 
 // Play Screen & Intro Video Logic
-let hasIntroPlayed = false;
-const playBtn = document.querySelector(".play-button");
-const introVideoContainer = document.querySelector(".intro-video");
-const introVideo = document.getElementById("introVideo");
-const skipBtn = document.querySelector(".skip-btn");
-
 // Play Button Click
 if (playBtn) {
     playBtn.addEventListener("click", () => {
@@ -230,9 +242,6 @@ if (rightArrow) {
 }
 
 // Game Screen Transitions
-const box1 = document.querySelector(".box-1");
-const gameScreen = document.querySelector(".game-screen");
-
 if (box1) {
     box1.addEventListener("click", () => {
         // Only trigger if active box (in case of overlap/hidden issues, though pointer-events handle it)
