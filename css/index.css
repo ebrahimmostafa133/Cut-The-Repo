@@ -1,3 +1,8 @@
+:root {
+    --main-font-color: white;
+    --hover-font-color: #915922;
+}
+
 *,
 *::before,
 *::after {
@@ -30,6 +35,13 @@ button:hover {
 body {
     cursor: url(../images/cursor.png), auto;
     font-family: gooddognew;
+    color: var(--main-font-color);
+    /* make the background more transparent */
+    background-color: rgba(176, 87, 35, 0.8);
+}
+
+i {
+    font-family: "Font Awesome 6 Free";
 }
 
 /* ================================================ */
@@ -52,22 +64,18 @@ body {
 
 .play-screen {
     background-image: url(../images/menubg.jpg);
-    /* User requested option screen BG */
     display: none;
-    /* Initially hidden */
 }
 
 /* Intro Video Overlay */
 .intro-video {
     display: none;
-    /* Toggled by JS */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
     z-index: 200;
-    /* Above everything */
     background: black;
     justify-content: center;
     align-items: center;
@@ -81,7 +89,6 @@ body {
     font-size: 20px;
     background: rgba(255, 255, 255, 0.2);
     border: 2px solid white;
-    color: white;
     border-radius: 10px;
     cursor: pointer;
     font-family: inherit;
@@ -92,8 +99,6 @@ body {
     background: rgba(255, 255, 255, 0.4);
 }
 
-/* Play Screen Content Layout */
-/* Play Screen Content Layout */
 .play-screen-content {
     display: flex;
     justify-content: center;
@@ -133,9 +138,7 @@ body {
 
 .level-box.active {
     display: flex;
-    /* Only active box shown */
     animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    /* Bouncy check effect */
 }
 
 @keyframes bounceIn {
@@ -163,16 +166,13 @@ body {
     top: 150px;
     width: 100%;
     text-align: center;
-    color: white;
     font-size: 50px;
     font-family: 'gooddogplain', sans-serif;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     z-index: 20;
 }
 
-/* Box 1 */
 .box-1 {
-    /* Background moved to ::after for layering */
     position: relative;
 }
 
@@ -190,11 +190,9 @@ body {
     background-image: url(../images/box1_bgd.png);
     background-size: 100% 100%;
     z-index: 2;
-    /* Content is z-index 1 */
     pointer-events: none;
 }
 
-/* Box 2 */
 .box-2 {
     background-image: url(../images/boxmore_bgd.png);
 }
@@ -203,7 +201,6 @@ body {
     width: 50%;
     text-align: center;
     font-size: 50px;
-    color: white;
     font-family: 'gooddogplain', sans-serif;
     transform: rotate(-5deg);
 }
@@ -223,14 +220,13 @@ body {
     object-fit: contain;
 }
 
-/* Arrows */
 .arrow-left,
 .arrow-right {
     background: none;
     border: none;
     font-size: 160px;
     /* Adjusted size */
-    color: #ece3dc;
+    color: var(--main-font-color);
     cursor: pointer;
     transition: transform 0.2s, opacity 0.2s;
 }
@@ -245,7 +241,7 @@ body {
 .arrow-left:not(:disabled):hover,
 .arrow-right:not(:disabled):hover {
     transform: scale(1.2);
-    color: #915922;
+    color: var(--hover-font-color);
 }
 
 .play-screen-back-button {
@@ -292,6 +288,10 @@ body {
     to {
         opacity: 1;
     }
+}
+
+.fade-in {
+    animation: fadeIn 2s ease-in-out;
 }
 
 .start-screen-buttons {
@@ -372,35 +372,42 @@ body {
     gap: 30px;
 }
 
-.options-screen-buttons {
+.options-screen-buttons,
+.states-screen-buttons,
+.states-screen-next-button {
     display: flex;
     gap: 20px;
 }
 
-.options-screen-buttons button {
+.options-screen-buttons button,
+.states-screen-buttons button,
+.states-screen-next-button button {
     width: 150px;
-    font-family: "Font Awesome 6 Free";
-    height: 60px;
+    height: 80px;
     background-image: url(../images/menu-options.png);
     background-repeat: no-repeat;
     background-color: transparent;
     border: none;
-    background-position: 0 0;
+    background-position: 0 -2%;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
-    color: #f8f3ef;
+    font-size: 2.5rem;
+    color: var(--main-font-color);
 
 }
 
-i {
-    font-family: "Font Awesome 6 Free";
+.states-screen-next-button button {
+    height: 75px;
 }
 
-.options-screen-buttons button:hover {
-    background-position: 0 20%;
+.options-screen-buttons button:hover,
+.states-screen-buttons button:hover,
+.states-screen-next-button button:hover {
+    background-position: 0 19.35%;
+    height: 75px;
+    scale: 1.1;
 }
 
 .options-screen-reset button,
@@ -534,7 +541,6 @@ i {
 
 /* Game Screen Container */
 .game-screen {
-    /* Three backgrounds: center tape (TOP), left pattern, right pattern */
     background-image:
         url(../images/leveltape.png),
         url(../images/levelbg1.jpg),
@@ -544,8 +550,6 @@ i {
         left top,
         right top;
     background-repeat:
-        repeat-y,
-        repeat-y,
         repeat-y;
     background-size:
         auto auto,
@@ -599,7 +603,6 @@ i {
     width: 100%;
     height: 90%;
     object-fit: cover;
-    /* Show top half (unlocked state) */
     object-position: center 0%;
     display: block;
 }
@@ -608,7 +611,6 @@ i {
     width: 100%;
     height: 90%;
     object-fit: cover;
-    /* Show bottom half (locked state) */
     object-position: center 95%;
     display: block;
 }
@@ -619,7 +621,7 @@ i {
     top: 30px;
     font-size: 48px;
     font-weight: bold;
-    color: #eae1da;
+    color: var(--main-font-color);
     font-family: 'gooddogplain', sans-serif;
     z-index: 10;
     pointer-events: none;
@@ -652,12 +654,9 @@ i {
 /* Star Sprite Logic */
 .star-display {
     width: 80px;
-    /* Estimated width */
     height: 45px;
-    /* Estimated height for one row */
     background-image: url(../images/options_stars_bgd.png);
     background-size: 100% auto;
-    /* Fit width, stack vertically */
     background-repeat: no-repeat;
     display: block;
 }
@@ -733,7 +732,6 @@ i {
 
 .tape-roll-overlay.active {
     top: -10%;
-    /* Slide down to cover screen */
 }
 
 .tape-roll-overlay img {
