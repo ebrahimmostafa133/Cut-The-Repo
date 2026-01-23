@@ -13,14 +13,14 @@ function showCompleteScreen() {
     }
 }
 
-function hideCompleteScreen() {
+export function hideCompleteScreen() {
     if (completeScreen) {
         completeScreen.style.display = 'none';
         document.removeEventListener('keydown', handleEnterKey);
     }
 }
 
-function handleEnterKey(event) {
+export function handleEnterKey(event) {
     if (event.key === 'Enter') {
         const style = window.getComputedStyle(completeScreen);
         if (style.display !== 'none') {
