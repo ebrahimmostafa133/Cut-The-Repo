@@ -1,9 +1,37 @@
 // Audio State
+import { populateBoxesList, populateLevelsList } from "./levels/levels.js";
+import { LEVELS_STATUS } from "./levels/levels_info.js";
 let isSoundOn = true;
 let isMusicOn = true;
 
+// All Buttons
+const allButtons = document.querySelectorAll("button");
+
+// Sound Buttons Logic
+const musicBtn = document.querySelector('.music-button');
+const soundBtn = document.querySelector('.sound-button');
+
+// Reset Popup Logic
+const resetScreen = document.querySelector(".reset-screen");
+const resetBtn = document.querySelector(".options-screen-reset button");
+const noBtn = document.querySelector(".no-button");
+const yesBtn = document.querySelector(".yes-button");
+
+// Play Screen & Intro Video Logic
+let hasIntroPlayed = false;
+const playBtn = document.querySelector(".play-button");
+const introVideoContainer = document.querySelector(".intro-video");
+const introVideo = document.getElementById("introVideo");
+const skipBtn = document.querySelector(".skip-btn");
+
 // Music Setup
 const backgroundMusic = new Audio("./audio/game_music.mp3");
+
+// Game Screen Transitions
+const gameScreen = document.querySelector(".game-screen");
+
+
+
 backgroundMusic.loop = true;
 
 // Attempt Autoplay
@@ -14,9 +42,6 @@ backgroundMusic.play().catch(error => {
     }, { once: true });
 });
 
-// Sound Buttons Logic
-const musicBtn = document.querySelector('.music-button');
-const soundBtn = document.querySelector('.sound-button');
 
 function updateIcons() {
     const musicIcon = musicBtn.querySelector('i');
@@ -73,7 +98,6 @@ if (soundBtn) {
 }
 
 // Global Tap Sound
-const allButtons = document.querySelectorAll("button");
 allButtons.forEach(button => {
     button.addEventListener("click", () => {
         if (isSoundOn) {
@@ -83,11 +107,6 @@ allButtons.forEach(button => {
     });
 });
 
-// Reset Popup Logic
-const resetScreen = document.querySelector(".reset-screen");
-const resetBtn = document.querySelector(".options-screen-reset button");
-const noBtn = document.querySelector(".no-button");
-const yesBtn = document.querySelector(".yes-button");
 
 if (resetBtn) {
     resetBtn.addEventListener("click", () => {
@@ -140,12 +159,6 @@ document.querySelectorAll(".back-button[data-back-to]").forEach(btn => {
 });
 
 // Play Screen & Intro Video Logic
-let hasIntroPlayed = false;
-const playBtn = document.querySelector(".play-button");
-const introVideoContainer = document.querySelector(".intro-video");
-const introVideo = document.getElementById("introVideo");
-const skipBtn = document.querySelector(".skip-btn");
-
 // Play Button Click
 if (playBtn) {
     playBtn.addEventListener("click", () => {
@@ -186,6 +199,7 @@ function finishVideo() {
 
 
 // Slider Logic
+const validBoxesElements = populateBoxesList();
 const boxes = document.querySelectorAll(".level-box");
 const leftArrow = document.querySelector(".arrow-left");
 const rightArrow = document.querySelector(".arrow-right");
@@ -229,18 +243,27 @@ if (rightArrow) {
     });
 }
 
-// Game Screen Transitions
-const box1 = document.querySelector(".box-1");
-const gameScreen = document.querySelector(".game-screen");
 
-if (box1) {
-    box1.addEventListener("click", () => {
-        // Only trigger if active box (in case of overlap/hidden issues, though pointer-events handle it)
-        if (box1.classList.contains('active')) {
-            document.querySelector(".play-screen").style.display = "none";
-            gameScreen.style.display = "block";
-        }
+
+// Game Screen Transitions
+validBoxesElements.forEach((boxElement, index) => {
+    boxElement.addEventListener("click", () => {
+        window.gameState.selectedBoxId = index;
+        // Transition to Level Selector screen
+
+        document.querySelector(".play-screen").style.display = "none";
+        gameScreen.style.display = "block";
+        populateLevelsList(window.gameState.selectedBoxId);
     });
+})
+
+function initGameState() {
+    window.gameState = {
+        levelsStatus: [...LEVELS_STATUS],
+        selectedBoxId: null,
+        currentLevel: null
+    }
 }
 
 
+initGameState();

@@ -189,7 +189,7 @@ function onSegment(ax, ay, bx, by, cx, cy) {
 // ═══════════════════════════════════════════════════════
 function draw() {
     clear();
-    drawBg('#87CEEB');
+    drawBg('#00000000');
 
     // Draw ropes
     ropes.forEach(r => {
@@ -244,7 +244,7 @@ function loop(t) {
     frameId = requestAnimationFrame(loop);
 }
 
-export async function start() {
+export async function start(levelData) {
     if (running) return;
 
     // Wait for DOM to be fully ready
@@ -277,7 +277,7 @@ export async function start() {
 
     await waitForCanvas();
 
-    setup();
+    setup(levelData);
     running = true;
     paused = false;
     lastT = performance.now();
@@ -365,6 +365,9 @@ function endGame(won) {
     console.log("Stars:", starsCollected);
     
     // TODO: show result screen with starsCollected
+    const event = new CustomEvent("EndLevel", {
+        detail: {won, starsCollected}
+    })
+    window.dispatchEvent(event);
 }
 
-start();

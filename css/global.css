@@ -1,0 +1,148 @@
+:root {
+    --main-font-color: white;
+    --hover-font-color: #915922;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+@font-face {
+    font-family: gooddognew;
+    src: url(../fonts/gooddog-new/gooddog_new-webfont.eot);
+    src: url(../fonts/gooddog-new/gooddog_new-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/gooddog-new/gooddog_new-webfont.woff) format("woff"), url(../fonts/gooddog-new/gooddog_new-webfont.ttf) format("truetype"), url(../fonts/gooddog-new/gooddog_new-webfont.svg#GoodDogNewRegular) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: gooddogplain;
+    src: url(../fonts/gooddog-plain/GoodDog-webfont.eot);
+    src: url(../fonts/gooddog-plain/GoodDog-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/gooddog-plain/GoodDog-webfont.woff) format("woff"), url(../fonts/gooddog-plain/GoodDog-webfont.ttf) format("truetype"), url(../fonts/gooddog-plain/GoodDog-webfont.svg#GoodDogRegular) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+
+button:hover {
+    cursor: url(../images/handcursor.png), auto;
+}
+
+body {
+    cursor: url(../images/cursor.png), auto;
+    font-family: gooddognew;
+    color: var(--main-font-color);
+    /* make the background more transparent */
+    background-color: rgba(176, 87, 35, 0.8);
+}
+
+i {
+    font-family: "Font Awesome 6 Free";
+}
+
+/* Animations and Utilities */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 2s ease-in-out;
+}
+
+.shadow-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shadow-img img {
+    width: 150vmax;
+    height: 150vmax;
+    animation: rotateShadow 60s linear infinite;
+    opacity: 1;
+}
+
+@keyframes rotateShadow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.back-button {
+    background-image: url(../images/bBtn_bgd.png);
+    background-size: 100% 200%;
+    background-position: 0 0;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+}
+
+/* Overlays moved to body */
+.box-cutter-overlay {
+    position: absolute;
+    bottom: -100%;
+    left: 82%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    transition: bottom 2s ease-in-out;
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+}
+
+.box-cutter-overlay.active {
+    bottom: 100%;
+}
+
+.tape-roll-overlay {
+    position: absolute;
+    top: 110%;
+    left: 49.5%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    transition: top 1.5s ease-in-out;
+    pointer-events: none;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.tape-roll-overlay.active {
+    top: -10%;
+}
+
+.tape-roll-overlay img {
+    width: 120px;
+    height: 100px;
+    display: block;
+}
