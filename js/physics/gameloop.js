@@ -1,6 +1,8 @@
 import { init, clear, drawBg, circle, line, rope, img, loadImg, getSize, swipeSlash } from './renderer.js';
 import { gravity, move, ropeLimit, slow } from './physics.js';
-
+import { absToRelX, absToRelY } from './coords.js';
+import { setGameObjects, recalculatePositions } from './resize.js';
+import { checkForCollsions } from './collisions.js';
 let running = false;
 let paused = false;
 let frameId = null;
@@ -9,6 +11,7 @@ let lastT = 0;
 let candy = null;
 let ropes = [];
 let starsRel = [];
+let frog = null;
 
 let starImg = null;
 let frogImg = null;
@@ -21,65 +24,65 @@ let isDrawing = false;
 // 1. SETUP - reads level data and positions objects
 // ═══════════════════════════════════════════════════════
 function setup(levelData = null) {
-    const { w, h } = getSize();
 
     if (!levelData) {
         levelData = {
             ropes: [
-                { anchorX: 0.25, anchorY: 0.05, len: 0.2 },   // Left - PRIMARY (straight)
-                { anchorX: 0.45, anchorY: 0.04, len: 0.45 },   // Center - curved
-                { anchorX: 0.65, anchorY: 0.04, len: 0.6 }    // Right - curved
+                { anchorX: 0.25, anchorY: 0.074, lenRel: 0.185 },   // Left - PRIMARY (straight)
+                { anchorX: 0.45, anchorY: 0.056, lenRel: 0.417 },   // Center - curved
+                { anchorX: 0.65, anchorY: 0.056, lenRel: 0.556 }    // Right - curved
             ],
             stars: [
                 { x: 0.30, y: 0.50 },
                 { x: 0.55, y: 0.40 }
-            ]
+            ],
+            frog: { x: 0.5, y: 0.93, r: 50 }
         };
     }
 
     // First, find the primary rope (shortest defined, or first)
     const primary = levelData.ropes[0];
-    const primaryAnchor = { x: w * primary.anchorX, y: h * primary.anchorY };
-
-    // Candy hangs directly below primary anchor at full rope length
-    const candyX = primaryAnchor.x;
-    const candyY = primaryAnchor.y + h * primary.len;
-
-    // Calculate lengths for other ropes so they can reach the candy
-    ropes = levelData.ropes.map((r, i) => {
-        const anchor = { x: w * r.anchorX, y: h * r.anchorY };
-
-        if (i === 0) {
-            // Primary rope - use defined length
-            return { anchor, len: h * r.len, cut: false };
-        } else {
-            // Other ropes - calculate length to reach candy + some slack for curve
-            const dx = candyX - anchor.x;
-            const dy = candyY - anchor.y;
-            const distToCandy = Math.sqrt(dx * dx + dy * dy);
-            const len = h * r.len || (distToCandy + 50);
-            return { anchor, len, cut: false };
-        }
-    });
+    // ropes, candy ,stars and frog absoluteX and y will calculated by recalculatePositions
+    ropes = levelData.ropes.map(r => ({
+        anchorRx: r.anchorX,
+        anchorRy: r.anchorY,
+        lenRel: r.lenRel,
+        anchor: { x: 0, y: 0 },
+        len: 0,
+        cut: false
+    }));
 
     candy = {
-        x: primaryAnchor.x,
-        y: primaryAnchor.y + h * primary.len,
+        rx: primary.anchorX,
+        ry: primary.anchorY + primary.lenRel,
+        x: 0,
+        y: 0,
         vx: 0,
         vy: 0,
         r: 25
     };
 
-    console.log('Candy at:', candy.x, candy.y);
-
     starsRel = levelData.stars.map(s => ({
         rx: s.x,
         ry: s.y,
+        x: 0,
+        y: 0,
         r: 15,
         got: false
     }));
 
+    frog = {
+        rx: levelData.frog.x,
+        ry: levelData.frog.y,
+        x: 0,  
+        y: 0,
+        r: levelData.frog.r
+    };
+
     swipePath = [];
+
+    setGameObjects(candy, ropes, starsRel, frog);
+    recalculatePositions();
 }
 
 // ═══════════════════════════════════════════════════════
@@ -92,7 +95,20 @@ function update(dt) {
     const allCut = ropes.every(r => r.cut);
 
     gravity(candy, dt);
+
     move(candy, dt);
+    
+    const collisionResult = checkForCollsions(candy, starsRel, frog);
+
+    if (collisionResult.frogHit) {
+        endGame(true);   // WIN
+        return;
+    }
+    
+    if (isCandyLost()) {
+        endGame(false);  // OOPS
+        return;
+    }
 
     // Only apply rope constraints if not all cut
     if (!allCut) {
@@ -104,6 +120,11 @@ function update(dt) {
     }
 
     slow(candy);
+
+    // syncing relative coordinates after physics calculations
+    const { w, h } = getSize();
+    candy.rx = absToRelX(candy.x, w);
+    candy.ry = absToRelY(candy.y, h);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -167,8 +188,6 @@ function onSegment(ax, ay, bx, by, cx, cy) {
 // DRAW - render everything
 // ═══════════════════════════════════════════════════════
 function draw() {
-    const { w, h } = getSize();
-
     clear();
     drawBg('#00000000');
 
@@ -190,21 +209,19 @@ function draw() {
     // Draw stars
     starsRel.forEach(s => {
         if (!s.got) {
-            const sx = w * s.rx;
-            const sy = h * s.ry;
             if (starImg) {
-                img(starImg, sx, sy, 40, 40);
+                img(starImg, s.x, s.y, 40, 40);
             } else {
-                circle(sx, sy, s.r, '#FFD700');
+                circle(s.x, s.y, s.r, '#FFD700');
             }
         }
     });
 
     // Draw frog
     if (frogImg) {
-        img(frogImg, w / 2, h - 80, 100, 100);
+        img(frogImg, frog.x, frog.y, frog.r * 2, frog.r * 2);
     } else {
-        circle(w / 2, h - 80, 50, '#4CAF50');
+        circle(frog.x, frog.y, frog.r, '#4CAF50');
     }
 
     // Draw swipe slash (golden glow like real game)
@@ -266,10 +283,8 @@ export async function start(levelData) {
     lastT = performance.now();
     frameId = requestAnimationFrame(loop);
 
-    // Swipe to cut (like real Cut the Rope)
     const canvas = document.getElementById('game-canvas');
 
-    // Mouse events
     canvas.addEventListener('mousedown', (e) => {
         isDrawing = true;
         swipePath = [{ x: e.clientX, y: e.clientY }];
@@ -331,10 +346,25 @@ export function resume() {
     }
 }
 
+function isCandyLost() {
+    const { h } = getSize();
+    return candy.y > h + 100;  // fell below screen
+}
+
 // Export for external use (Zeyad's input.js)
 export function cutRopeAt(mouseX, mouseY) {
     swipePath.push({ x: mouseX, y: mouseY });
     checkSwipeCuts();
 }
 
+function endGame(won) {
+    stop();
+    const starsCollected = starsRel.filter(s => s.got).length;
+    
+    console.log(won ? "WIN!" : "OOPS!");
+    console.log("Stars:", starsCollected);
+    
+    // TODO: show result screen with starsCollected
+}
 
+start();
