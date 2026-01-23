@@ -37,10 +37,11 @@ wonScreenNextButton.addEventListener("click", () => {
 });
 
 function updateLevelStatus(starsCollected) {
-    const currentLevelStatus = window.gameState.levelsStatus.find(l => l.id == window.gameState.currentLevel.id);
-    currentLevelStatus.stars = starsCollected;
+    const levelsStatus = window.gameState.levelsStatus;
+    const currentIndex = levelsStatus.findIndex(l => l.id == window.gameState.currentLevel.id);
+    levelsStatus[currentIndex].stars = starsCollected;
     //unlock next level
-    const nextLevelStatus = window.gameState.levelsStatus.find(l => l.id == currentLevelStatus.id + 1)
+    const nextLevelStatus = levelsStatus[currentIndex + 1];
     console.log(nextLevelStatus)
     if (nextLevelStatus) nextLevelStatus.status = "unlocked";
 }

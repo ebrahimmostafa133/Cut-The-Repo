@@ -173,7 +173,9 @@ export function advanceCurrentLevel()
     const currentLevel = window.gameState.currentLevel;
     if(!currentLevel)
         return false;
-    const nextLevel = levels.find(l => l.id == currentLevel.id + 1);
+    
+    const currentIndex = levels.findIndex(l => l.id === currentLevel.id);
+    const nextLevel = levels[currentIndex +1]
     if(nextLevel != undefined)
     {
         window.gameState.currentLevel = nextLevel;
