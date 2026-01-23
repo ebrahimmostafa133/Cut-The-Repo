@@ -3,7 +3,7 @@ import { LEVELS_INFO } from "./levels_info.js";
 import { setupLevel } from "./level_screen.js";
 const boxes = LEVELS_INFO.boxes;
 const levels = boxes.flatMap(box => box.levels);
-const boxesListELement = document.querySelector("div.slider-container")
+const boxesListElement = document.querySelector("div.slider-container")
 
 
 const lvlAppUnlockedLevels = document.querySelectorAll(".level-item.unlocked");
@@ -68,7 +68,7 @@ function populateBoxesList() {
     let elements = [];
     for (let i = 0; i < boxes.length; i++) {
         let el = createBoxElement(boxes[i]);
-        boxesListELement.appendChild(el);
+        boxesListElement.appendChild(el);
         elements.push(el);
     }
 
@@ -80,7 +80,7 @@ function populateBoxesList() {
         </div>
     `;
 
-    boxesListELement.appendChild(comingSoon);
+    boxesListElement.appendChild(comingSoon);
 
     return elements;
 }
