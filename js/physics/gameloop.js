@@ -367,4 +367,3 @@ function endGame(won) {
     // TODO: show result screen with starsCollected
 }
 
-start();
