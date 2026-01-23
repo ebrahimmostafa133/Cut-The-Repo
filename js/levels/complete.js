@@ -6,7 +6,7 @@
 const completeScreen = document.querySelector('.complete-screen');
 const mainScreen = document.querySelector('.main-screen');
 
-function showCompleteScreen() {
+export function showCompleteScreen() {
     if (completeScreen) {
         completeScreen.style.display = 'flex';
         document.addEventListener('keydown', handleEnterKey);
@@ -20,7 +20,7 @@ export function hideCompleteScreen() {
     }
 }
 
-export function handleEnterKey(event) {
+function handleEnterKey(event) {
     if (event.key === 'Enter') {
         const style = window.getComputedStyle(completeScreen);
         if (style.display !== 'none') {
