@@ -140,13 +140,6 @@ function transitionToLevelScreen(level) {
         // Hide the main game screen
         if (lvlAppGameScreen) lvlAppGameScreen.style.display = "none";
 
-        // Hide all level screens safely (only those that are actual level screens)
-        document.querySelectorAll("[class$='-screen']").forEach(screen => {
-            // Check if the screen is a level screen (e.g., level1-screen, level2-screen, etc.)
-            if (screen.classList.contains(`level${level.id}-screen`) || screen.classList.contains("level1-screen") || screen.classList.contains("level2-screen") || screen.classList.contains("level3-screen")) {
-                screen.style.display = "none";
-            }
-        });
 
         // Show selected level screen
         const targetScreen = document.querySelector(`.level1-screen`);
