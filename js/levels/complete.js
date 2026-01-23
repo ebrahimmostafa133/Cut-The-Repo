@@ -6,14 +6,14 @@
 const completeScreen = document.querySelector('.complete-screen');
 const mainScreen = document.querySelector('.main-screen');
 
-function showCompleteScreen() {
+export function showCompleteScreen() {
     if (completeScreen) {
         completeScreen.style.display = 'flex';
         document.addEventListener('keydown', handleEnterKey);
     }
 }
 
-function hideCompleteScreen() {
+export function hideCompleteScreen() {
     if (completeScreen) {
         completeScreen.style.display = 'none';
         document.removeEventListener('keydown', handleEnterKey);

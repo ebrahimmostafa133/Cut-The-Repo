@@ -3,7 +3,7 @@
 /* ================================================ */
 .states-screen {
     /* display none by default */
-    display: block;
+    display: none;
     background-image:
         url(../images/levelbg1.jpg),
         url(../images/levelbg1.jpg);

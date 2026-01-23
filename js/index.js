@@ -1,4 +1,6 @@
 // Audio State
+import { populateBoxesList, populateLevelsList } from "./levels/levels.js";
+import { LEVELS_STATUS } from "./levels/levels_info.js";
 let isSoundOn = true;
 let isMusicOn = true;
 
@@ -26,7 +28,6 @@ const skipBtn = document.querySelector(".skip-btn");
 const backgroundMusic = new Audio("./audio/game_music.mp3");
 
 // Game Screen Transitions
-const box1 = document.querySelector(".box-1");
 const gameScreen = document.querySelector(".game-screen");
 
 
@@ -198,6 +199,7 @@ function finishVideo() {
 
 
 // Slider Logic
+const validBoxesElements = populateBoxesList();
 const boxes = document.querySelectorAll(".level-box");
 const leftArrow = document.querySelector(".arrow-left");
 const rightArrow = document.querySelector(".arrow-right");
@@ -241,15 +243,27 @@ if (rightArrow) {
     });
 }
 
+
+
 // Game Screen Transitions
-if (box1) {
-    box1.addEventListener("click", () => {
-        // Only trigger if active box (in case of overlap/hidden issues, though pointer-events handle it)
-        if (box1.classList.contains('active')) {
-            document.querySelector(".play-screen").style.display = "none";
-            gameScreen.style.display = "block";
-        }
+validBoxesElements.forEach((boxElement, index) => {
+    boxElement.addEventListener("click", () => {
+        window.gameState.selectedBoxId = index;
+        // Transition to Level Selector screen
+
+        document.querySelector(".play-screen").style.display = "none";
+        gameScreen.style.display = "block";
+        populateLevelsList(window.gameState.selectedBoxId);
     });
+})
+
+function initGameState() {
+    window.gameState = {
+        levelsStatus: [...LEVELS_STATUS],
+        selectedBoxId: null,
+        currentLevel: null
+    }
 }
 
 
+initGameState();
