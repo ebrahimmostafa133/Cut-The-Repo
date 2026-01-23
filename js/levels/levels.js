@@ -2,7 +2,7 @@
 import { LEVELS_INFO } from "./levels_info.js";
 import { setupLevel } from "./level_screen.js";
 const boxes = LEVELS_INFO.boxes;
-
+const levels = boxes.flatMap(box => box.levels);
 const boxesListELement = document.querySelector("div.slider-container")
 
 
@@ -118,7 +118,8 @@ function populateLevelsList(boxId)
         element.addEventListener("click", function() {
             if(levelStatus.status == "unlocked")
             {
-                transitionToLevelScreen(level);
+                window.gameState.currentLevel = level;
+                transitionToLevelScreen();
             }
         });
     } 
@@ -126,7 +127,8 @@ function populateLevelsList(boxId)
 }
 
 // 1. Forward Transition (Game -> Level)
-function transitionToLevelScreen(level) {
+function transitionToLevelScreen() {
+    const level = window.gameState.currentLevel;
     // Hide Game Screen Back Button (Container)
     if (lvlAppGameBackBtnContainer) lvlAppGameBackBtnContainer.style.display = "none";
     // Hide the Levels Screen container
@@ -156,10 +158,23 @@ function transitionToLevelScreen(level) {
         if (lvlAppBoxCutterOverlay) lvlAppBoxCutterOverlay.classList.remove("active");
     }, 2000); // Reset after full animation
 
-    window.gameState.currentLevel = level;
     console.log(level)
     setupLevel();
 }
 
-
+export function advanceCurrentLevel()
+{
+    const currentLevel = window.gameState.currentLevel;
+    if(!currentLevel)
+        return false;
+    const nextLevel = levels.find(l => l.id == currentLevel.id + 1);
+    if(nextLevel != undefined)
+    {
+        window.gameState.currentLevel = nextLevel;
+        return true;
+    }
+    window.gameState.currentLevel = null;
+    return false;
+    
+}
 export { populateBoxesList, populateLevelsList };
