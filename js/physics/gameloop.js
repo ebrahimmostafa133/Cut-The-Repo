@@ -365,5 +365,9 @@ function endGame(won) {
     console.log("Stars:", starsCollected);
     
     // TODO: show result screen with starsCollected
+    const event = new CustomEvent("EndLevel", {
+        detail: {won, starsCollected}
+    })
+    window.dispatchEvent(event);
 }
 
