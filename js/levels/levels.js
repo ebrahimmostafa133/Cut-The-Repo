@@ -20,6 +20,7 @@ const lvlAppLevelBackButtons = document.querySelectorAll(".level-screen-back-but
 
 lvlAppLevelBackButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
+        populateLevelsList(window.gameState.selectedBoxId);
         const parentScreen = btn.closest("[class$='-screen']");
 
         // 1. Hide Current Level Screen
