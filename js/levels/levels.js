@@ -129,6 +129,7 @@ function populateLevelsList(boxId)
 // 1. Forward Transition (Game -> Level)
 function transitionToLevelScreen() {
     const level = window.gameState.currentLevel;
+
     // Hide Game Screen Back Button (Container)
     if (lvlAppGameBackBtnContainer) lvlAppGameBackBtnContainer.style.display = "none";
     // Hide the Levels Screen container
@@ -156,6 +157,10 @@ function transitionToLevelScreen() {
     setTimeout(() => {
         // Reset overlay after full animation
         if (lvlAppBoxCutterOverlay) lvlAppBoxCutterOverlay.classList.remove("active");
+
+        // Show the levels screen again
+        if (lvlAppLevelsScreen) lvlAppLevelsScreen.style.display = "flex";
+        if (lvlAppGameBackBtnContainer) lvlAppGameBackBtnContainer.style.display = "block";
     }, 2000); // Reset after full animation
 
     console.log(level)
