@@ -1,7 +1,7 @@
 // Audio State
 import { populateBoxesList, populateLevelsList } from "./levels/levels.js";
 import { LEVELS_STATUS } from "./levels/levels_info.js";
-import { loadProgress , saveIntroPlayed ,hasIntroBeenPlayed, saveMusicState, saveSoundState, loadMusicState, loadSoundState } from "./storage/store.js";
+import { loadProgress, saveIntroPlayed, hasIntroBeenPlayed, saveMusicState, saveSoundState, loadMusicState, loadSoundState } from "./storage/store.js";
 let isSoundOn = loadSoundState();
 let isMusicOn = loadMusicState();
 
@@ -276,3 +276,17 @@ function initGameState() {
 
 
 initGameState();
+
+// Prevent Zooming
+document.addEventListener("keydown", function (e) {
+    if ((e.ctrlKey && (e.key === "+" || e.key === "-" || e.key === "=" || e.key === "0")) ||
+        (e.ctrlKey && e.shiftKey && (e.key === "+" || e.key === "_" || e.key === "=" || e.key === "0"))) {
+        e.preventDefault();
+    }
+});
+
+document.addEventListener("wheel", function (e) {
+    if (e.ctrlKey) {
+        e.preventDefault();
+    }
+}, { passive: false });
