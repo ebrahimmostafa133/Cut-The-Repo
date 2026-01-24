@@ -61,6 +61,8 @@ function createBoxElement(box_info) {
             <img src="./images/pin-omnom.png" alt="Om Nom" class="omnom">
         </div>
         `
+    
+    div.style.setProperty("--box-bg-img", `url("${box_info.bgUrl}")`);
     return div;
 }
 

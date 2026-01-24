@@ -4,6 +4,7 @@ const LEVELS_INFO = {
         {
             id: 0,
             name: "Box 1",
+            bgUrl: "../images/box1_bgd.png",
             levels: [
                 // Level 1-1: 
                 {
@@ -95,6 +96,7 @@ const LEVELS_INFO = {
         {
             id: 1,
             name: "Box 2",
+            bgUrl: "../images/box2_bgd.png",
             levels: [
                 {
                     id: 6, name: "Level 6", difficulty: "easy",
@@ -133,6 +135,7 @@ const LEVELS_INFO = {
         {
             id: 2,
             name: "Box 3",
+            bgUrl: "../images/box3_bgd.png",
             levels: [
                 { id: 8, name: "Level 8", difficulty: "medium" },
                 { id: 9, name: "Level 9", difficulty: "hard" }
