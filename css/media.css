@@ -1,0 +1,165 @@
+@media screen and (max-width: 1024px) {
+
+    /* Start Screen */
+    .logo img {
+        width: 400px;
+    }
+
+    .start-screen-buttons button {
+        width: 250px;
+        height: 83px;
+        background-size: 100% 200%;
+    }
+
+    /* Play Screen */
+    .slider-container {
+        width: 400px;
+        height: 400px;
+    }
+
+    .level-box {
+        width: 400px;
+        height: 400px;
+    }
+
+    .box-label {
+        font-size: 40px;
+        top: 120px;
+    }
+
+    .omnom-container {
+        width: 180px;
+        height: 180px;
+        top: 100px;
+    }
+
+    /* Levels Screen */
+    .levels-screen {
+        gap: 30px;
+    }
+
+    .level-item {
+        width: 130px;
+        height: 150px;
+    }
+
+    .level-number {
+        font-size: 40px;
+    }
+
+    .box-cutter-overlay {
+        left: 34%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    /* Global */
+    .back-button {
+        width: 80px;
+        height: 80px;
+    }
+
+    /* Start Screen */
+    .logo img {
+        width: 300px;
+    }
+
+    .start-screen-buttons button {
+        width: 200px;
+        height: 66px;
+        background-size: 100% 200%;
+    }
+
+    /* Options Screen */
+    .options-screen-buttons {
+        gap: 15px;
+    }
+
+    .options-screen-reset button {
+        width: 250px;
+        height: 107px;
+    }
+
+    /* Play Screen */
+    .play-screen-content {
+        gap: 50px;
+    }
+
+    .slider-container {
+        width: 300px;
+        height: 300px;
+    }
+
+    .level-box {
+        width: 300px;
+        height: 300px;
+    }
+
+    .box-label {
+        font-size: 30px;
+        top: 90px;
+    }
+
+    .omnom-container {
+        width: 140px;
+        height: 140px;
+        top: 80px;
+    }
+
+    .arrow-left,
+    .arrow-right {
+        font-size: 100px;
+    }
+
+    /* Levels Screen */
+    .levels-screen {
+        padding: 0;
+        gap: 20px;
+    }
+
+    .level-item {
+        width: 100px;
+        height: 120px;
+    }
+
+    .level-number {
+        font-size: 30px;
+        top: 20px;
+    }
+
+    .star-display {
+        width: 50px;
+        height: 30px;
+    }
+
+    /* States Screen */
+    .states-screen-content {
+        font-size: 2rem;
+    }
+
+    .star {
+        width: 50px;
+        height: 46px;
+    }
+
+    .intro-video video {
+        object-fit: contain;
+    }
+
+    /* Complete Screen */
+    .complete-screen p {
+        font-size: 2rem;
+    }
+
+    .complete-screen span {
+        font-size: 3rem;
+    }
+
+    .box-cutter-overlay {
+        left: 28%;
+    }
+
+}
+
+/*  */
