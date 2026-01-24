@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0">
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/start-screen.css">
     <link rel="stylesheet" href="./css/options.css">
@@ -189,6 +190,9 @@
             <button class="back-button">
             </button>
         </div>
+        <div class="level-screen-restart-button">
+            <button class="restart-button"></button>
+        </div>
     </main>
 
 
@@ -250,7 +254,7 @@
 
     <script type="module" src="./js/index.js"></script>
     <script type="module" src="./js/physics/gameloop.js"></script>
-    <script src="./js/states/gameState.js"></script>
+    <script type="module" src="./js/states/gameState.js"></script>
 </body>
 
 </html>

@@ -219,7 +219,7 @@ function draw() {
 
     // Draw frog
     if (frogImg) {
-        img(frogImg, frog.x, frog.y, frog.r * 2, frog.r * 2);
+        img(frogImg, frog.x, frog.y, frog.r * 2.4, frog.r * 2.4);
     } else {
         circle(frog.x, frog.y, frog.r, '#4CAF50');
     }

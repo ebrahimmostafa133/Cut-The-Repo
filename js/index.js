@@ -1,8 +1,9 @@
 // Audio State
 import { populateBoxesList, populateLevelsList } from "./levels/levels.js";
 import { LEVELS_STATUS } from "./levels/levels_info.js";
-let isSoundOn = true;
-let isMusicOn = true;
+import { loadProgress, saveIntroPlayed, hasIntroBeenPlayed, saveMusicState, saveSoundState, loadMusicState, loadSoundState } from "./storage/store.js";
+let isSoundOn = loadSoundState();
+let isMusicOn = loadMusicState();
 
 // All Buttons
 const allButtons = document.querySelectorAll("button");
@@ -18,7 +19,7 @@ const noBtn = document.querySelector(".no-button");
 const yesBtn = document.querySelector(".yes-button");
 
 // Play Screen & Intro Video Logic
-let hasIntroPlayed = false;
+let hasIntroPlayed = hasIntroBeenPlayed();
 const playBtn = document.querySelector(".play-button");
 const introVideoContainer = document.querySelector(".intro-video");
 const introVideo = document.getElementById("introVideo");
@@ -34,28 +35,31 @@ const gameScreen = document.querySelector(".game-screen");
 
 backgroundMusic.loop = true;
 
-// Attempt Autoplay
-backgroundMusic.play().catch(error => {
-    console.log("Autoplay prevented. Waiting for user interaction.");
-    document.addEventListener('click', () => {
-        if (isMusicOn) backgroundMusic.play();
-    }, { once: true });
-});
+if (isMusicOn) {
+    backgroundMusic.play().catch(() => {
+        // Autoplay blocked by browser - wait for first user interaction
+        document.addEventListener('click', () => {
+            if (isMusicOn && backgroundMusic.paused) {
+                backgroundMusic.play();
+            }
+        }, { once: true, capture: true });
+    });
+}
 
 
-function updateIcons() {
+function updateIcons(controlMusic = true) {
     const musicIcon = musicBtn.querySelector('i');
     const soundIcon = soundBtn.querySelector('i');
 
     if (isMusicOn) {
         // Music On
         musicIcon.className = "fa-solid fa-music";
-        if (backgroundMusic.paused) backgroundMusic.play();
+        if (controlMusic && backgroundMusic.paused) backgroundMusic.play();
     } else {
         // Music Off
         musicIcon.className = "fa-solid fa-music";
         musicIcon.style.opacity = "0.5";
-        backgroundMusic.pause();
+        if (controlMusic) backgroundMusic.pause();
     }
 
     // Explicit Off Icon approach
@@ -80,12 +84,14 @@ function updateIcons() {
         soundIcon.style.opacity = "0.4";
     }
 }
+updateIcons(false);
 
 if (musicBtn) {
     musicBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         isMusicOn = !isMusicOn;
         updateIcons();
+        saveMusicState(isMusicOn);
     });
 }
 
@@ -94,6 +100,7 @@ if (soundBtn) {
         e.stopPropagation();
         isSoundOn = !isSoundOn;
         updateIcons();
+        saveSoundState(isSoundOn);
     });
 }
 
@@ -170,6 +177,7 @@ if (playBtn) {
             introVideoContainer.style.display = "flex";
             introVideo.play();
             hasIntroPlayed = true;
+            saveIntroPlayed();
         } else {
             // Show Play Screen directly
             document.querySelector(".play-screen").style.display = "block";
@@ -258,8 +266,9 @@ validBoxesElements.forEach((boxElement, index) => {
 })
 
 function initGameState() {
+    const savedLevels = loadProgress();
     window.gameState = {
-        levelsStatus: [...LEVELS_STATUS],
+        levelsStatus: savedLevels || [...LEVELS_STATUS],
         selectedBoxId: null,
         currentLevel: null
     }
@@ -267,3 +276,17 @@ function initGameState() {
 
 
 initGameState();
+
+// Prevent Zooming
+document.addEventListener("keydown", function (e) {
+    if ((e.ctrlKey && (e.key === "+" || e.key === "-" || e.key === "=" || e.key === "0")) ||
+        (e.ctrlKey && e.shiftKey && (e.key === "+" || e.key === "_" || e.key === "=" || e.key === "0"))) {
+        e.preventDefault();
+    }
+});
+
+document.addEventListener("wheel", function (e) {
+    if (e.ctrlKey) {
+        e.preventDefault();
+    }
+}, { passive: false });
