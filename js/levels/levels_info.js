@@ -5,6 +5,7 @@ const LEVELS_INFO = {
             id: 0,
             name: "Box 1",
             bgUrl: "../images/box1_bgd.png",
+            gameBgUrl: "../images/bgr_01_p1.jpg",
             levels: [
                 // Level 1-1: 
                 {
@@ -97,6 +98,7 @@ const LEVELS_INFO = {
             id: 1,
             name: "Box 2",
             bgUrl: "../images/box2_bgd.png",
+            gameBgUrl: "../images/bgr_02_p1.jpg",
             levels: [
                 {
                     id: 6, name: "Level 6", difficulty: "easy",
@@ -136,6 +138,7 @@ const LEVELS_INFO = {
             id: 2,
             name: "Box 3",
             bgUrl: "../images/box3_bgd.png",
+            gameBgUrl: "../images/bgr_03_p1.jpg",
             levels: [
                 { id: 8, name: "Level 8", difficulty: "medium" },
                 { id: 9, name: "Level 9", difficulty: "hard" }

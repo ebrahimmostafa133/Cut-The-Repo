@@ -122,7 +122,7 @@ function populateLevelsList(boxId)
             if(levelStatus.status == "unlocked")
             {
                 window.gameState.currentLevel = level;
-                transitionToLevelScreen();
+                transitionToLevelScreen(box);
             }
         });
     } 
@@ -130,7 +130,7 @@ function populateLevelsList(boxId)
 }
 
 // 1. Forward Transition (Game -> Level)
-function transitionToLevelScreen() {
+function transitionToLevelScreen(box) {
     const level = window.gameState.currentLevel;
 
     // Hide Game Screen Back Button (Container)
@@ -151,6 +151,7 @@ function transitionToLevelScreen() {
         const targetScreen = document.querySelector(`.level1-screen`);
         if (targetScreen) {
             targetScreen.style.display = "block";
+            targetScreen.style.backgroundImage = `url("${box.gameBgUrl}")`;
         } else {
             console.warn(`Target screen .level1-screen not found.`);
         }
