@@ -59,15 +59,17 @@ const LEVELS_INFO = {
                     id: 4, name: "Level 4", difficulty: "medium",
                     "physics": {
                         ropes: [
-                            { anchorX: 0.35, anchorY: 0.06, lenRel: 0.40 },
-                            { anchorX: 0.65, anchorY: 0.06, lenRel: 0.50 }
+                            { anchorX: 0.50, anchorY: 0.15, lenRel: 0.20 },
+                            { anchorX: 0.45, anchorY: 0.30, lenRel: 0.20 },
+                            { anchorX: 0.55, anchorY: 0.30, lenRel: 0.20 },
+                            { anchorX: 0.50, anchorY: 0.45, lenRel: 0.20 }
                         ],
                         stars: [
-                            { x: 0.38, y: 0.42 },
-                            { x: 0.35, y: 0.55 },
-                            { x: 0.50, y: 0.75 }
+                            { x: 0.50, y: 0.47 },
+                            { x: 0.38, y: 0.48 },
+                            { x: 0.50, y: 0.65 }
                         ],
-                        frog: { x: 0.50, y: 0.88, r: 50 }
+                        frog: { x: 0.60, y: 0.72, r: 50 }
                     }
                 },
                 // Level 1-5: Advanced - multiple ropes, precision needed
@@ -147,13 +149,13 @@ const LEVELS_STATUS = [
         id: 2, status: "unlocked", stars: 0
     },
     {
-        id: 3, status: "locked", stars: 0
+        id: 3, status: "unlocked", stars: 0
     },
     {
-        id: 4, status: "locked", stars: 0
+        id: 4, status: "unlocked", stars: 0
     },
     {
-        id: 5, status: "locked", stars: 0
+        id: 5, status: "unlocked", stars: 0
     },
     {
         id: 6, status: "locked", stars: 0
