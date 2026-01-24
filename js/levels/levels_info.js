@@ -42,16 +42,16 @@ const LEVELS_INFO = {
                     id: 3, name: "Level 3", difficulty: "easy",
                     "physics": {
                         ropes: [
-                            { anchorX: 0.30, anchorY: 0.06, lenRel: 0.28 },
-                            { anchorX: 0.50, anchorY: 0.05, lenRel: 0.45 },
-                            { anchorX: 0.70, anchorY: 0.06, lenRel: 0.55 }
+                            { anchorX: 0.50, anchorY: 0.20, lenRel: 0.20 },
+                            { anchorX: 0.60, anchorY: 0.20, lenRel: 0.10 },
+                            { anchorX: 0.50, anchorY: 0.50, lenRel: 0.20 }
                         ],
                         stars: [
-                            { x: 0.35, y: 0.45 },
-                            { x: 0.50, y: 0.58 },
+                            { x: 0.43, y: 0.35 },
+                            { x: 0.45, y: 0.55 },
                             { x: 0.50, y: 0.72 }
                         ],
-                        frog: { x: 0.50, y: 0.88, r: 50 }
+                        frog: { x: 0.60, y: 0.72, r: 50 }
                     }
                 },
                 // Level 1-4: Three ropes - strategic cutting
