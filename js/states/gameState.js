@@ -17,6 +17,7 @@ menuBtn.addEventListener("click", () => {
     statesScreen.style.display = "none";
     gameScreen.style.display = "block";
     gameScreen.classList.add("fade-in");
+    gameScreen.style.animationDuration = "0.4s";
 
     gameScreen.addEventListener("animationend", () => {
         gameScreen.classList.remove("fade-in");
