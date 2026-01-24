@@ -21,3 +21,26 @@
     left: 30px;
     z-index: 20;
 }
+
+.level-screen-restart-button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 20;
+}
+
+.restart-button {
+    background-image: url(../images/buttonsprite.png);
+    background-position: -90px 0;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: transparent;
+    width: 55px;
+    height: 46px;
+    cursor: pointer;
+}
+
+.restart-button:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+}
