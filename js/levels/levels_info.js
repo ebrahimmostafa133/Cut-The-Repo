@@ -77,9 +77,9 @@ const LEVELS_INFO = {
                     id: 5, name: "Level 5", difficulty: "hard",
                     "physics": {
                         ropes: [
-                            { anchorX: 0.32, anchorY: 0.06, lenRel: 0.28 },
-                            { anchorX: 0.44, anchorY: 0.04, lenRel: 0.50 },
-                            { anchorX: 0.56, anchorY: 0.04, lenRel: 0.50 },
+                            { anchorX: 0.06, anchorY: 0.06, lenRel: 0.28 },
+                            { anchorX: 0.50, anchorY: 0.33, lenRel: 0.50 },
+                            { anchorX: 0.7, anchorY: 0.77, lenRel: 0.50 },
                             { anchorX: 0.68, anchorY: 0.06, lenRel: 0.55 }
                         ],
                         stars: [
@@ -146,16 +146,16 @@ const LEVELS_STATUS = [
         id: 1, status: "unlocked", stars: 0
     },
     {
-        id: 2, status: "unlocked", stars: 0
+        id: 2, status: "locked", stars: 0
     },
     {
-        id: 3, status: "unlocked", stars: 0
+        id: 3, status: "locked", stars: 0
     },
     {
-        id: 4, status: "unlocked", stars: 0
+        id: 4, status: "locked", stars: 0
     },
     {
-        id: 5, status: "unlocked", stars: 0
+        id: 5, status: "locked", stars: 0
     },
     {
         id: 6, status: "locked", stars: 0

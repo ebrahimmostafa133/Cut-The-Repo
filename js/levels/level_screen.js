@@ -2,6 +2,7 @@
 import { start, stop } from "../physics/gameloop.js";
 import { showCompleteScreen, hideCompleteScreen } from "./complete.js";
 import { advanceCurrentLevel } from "./levels.js";
+import { saveProgress } from "../storage/store.js";
 const levelScreenElement = document.querySelector(`.level1-screen`);
 const wonScreenElement = document.querySelector(`.states-screen`);
 const wonScreenNextButton = wonScreenElement.querySelector("button.next-button")
@@ -44,6 +45,7 @@ function updateLevelStatus(starsCollected) {
     const nextLevelStatus = levelsStatus[currentIndex + 1];
     console.log(nextLevelStatus)
     if (nextLevelStatus) nextLevelStatus.status = "unlocked";
+    saveProgress();
 }
 
 function transitionToWonScreen(starsCollected) {
