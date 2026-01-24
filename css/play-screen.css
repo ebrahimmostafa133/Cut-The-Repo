@@ -130,7 +130,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(../images/box1_bgd.png);
+    background-image: var(--box-bg-img);
     background-size: 100% 100%;
     z-index: 2;
     pointer-events: none;

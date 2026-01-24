@@ -1,6 +1,7 @@
 // this files handles setup up canvas eac
 import { start, stop } from "../physics/gameloop.js";
 import { showCompleteScreen, hideCompleteScreen } from "./complete.js";
+import { LEVELS_INFO } from "./levels_info.js";
 import { advanceCurrentLevel } from "./levels.js";
 import { saveProgress } from "../storage/store.js";
 const levelScreenElement = document.querySelector(`.level1-screen`);
@@ -62,6 +63,8 @@ function transitionToWonScreen(starsCollected) {
 function transitionToNextLevel() {
     wonScreenElement.style.display = 'none';
     levelScreenElement.style.display = "block";
+    let box = LEVELS_INFO.boxes.find(box => box.levels.some(l => l.id == window.gameState.currentLevel.id));
+    levelScreenElement.style.backgroundImage = `url("${box.gameBgUrl}")`;
 }
 
 function transitionToCompleteScreen() {
