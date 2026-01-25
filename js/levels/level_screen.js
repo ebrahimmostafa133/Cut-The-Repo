@@ -7,6 +7,8 @@ import { saveProgress } from "../storage/store.js";
 const levelScreenElement = document.querySelector(`.level1-screen`);
 const wonScreenElement = document.querySelector(`.states-screen`);
 const wonScreenNextButton = wonScreenElement.querySelector("button.next-button")
+const winAudio = new Audio("./audio/win.mp3");
+
 export function setupLevel() {
     stop();
     start(window.gameState.currentLevel.physics);
@@ -20,6 +22,9 @@ window.addEventListener("EndLevel", (e) => {
         // transition to statesScreen;
         transitionToWonScreen(starsCollected);
         updateLevelStatus(starsCollected);
+
+        //play win sound
+        winAudio.play();
     }
     else
     {
