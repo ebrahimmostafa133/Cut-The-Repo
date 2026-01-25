@@ -26,6 +26,7 @@ let frogAnimationPlayer = new AnimationPlayer();
 let swipePath = [];
 let isDrawing = false;
 
+let isCandyEaten = false;
 // ═══════════════════════════════════════════════════════
 // 1. SETUP - reads level data and positions objects
 // ═══════════════════════════════════════════════════════
@@ -125,12 +126,17 @@ function update(dt) {
     
     const collisionResult = checkForCollsions(candy, starsRel, frog, bubbles);
 
-    if (collisionResult.frogHit) {
-        endGame(true);   // WIN
+    if (!isCandyEaten && collisionResult.frogHit) {
+        frogAnimationPlayer.play("eating");
+        isCandyEaten = true;
+
+        setTimeout(() => {
+            endGame(true);   // WIN
+        }, 1000);
         return;
     }
     
-    if (isCandyLost()) {
+    if (!isCandyEaten && isCandyLost()) {
         endGame(false);  // OOPS
         return;
     }
@@ -239,7 +245,7 @@ function draw() {
     });
 
     // Draw candy
-    if (candy) {
+    if (candy && !isCandyEaten ) {
         drawCandy(candy.x, candy.y, candy.r);
     }
 
@@ -312,6 +318,7 @@ export async function start(levelData) {
     frogAnimationPlayer.animations['idle'] = frogIdleAnimatedSprite;
     frogAnimationPlayer.defaultAnimation = 'idle';
     frogAnimationPlayer.animations['eating'] = frogEatingAnimatedSprite;
+    frogAnimationPlayer.play('eating');
     // Wait for next animation frame AND ensure canvas has size
     const waitForCanvas = () => {
         return new Promise(resolve => {
