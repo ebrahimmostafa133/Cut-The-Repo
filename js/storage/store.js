@@ -7,6 +7,11 @@ export function loadProgress() {
     return saved ? JSON.parse(saved) : null;
 }
 
+export function clearProgress() {
+    localStorage.removeItem('levelsStatus');
+    localStorage.removeItem('introPlayed');
+}
+
 export function saveIntroPlayed() {
     localStorage.setItem('introPlayed', 'true');
 }

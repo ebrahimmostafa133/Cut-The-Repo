@@ -1,4 +1,5 @@
 import { setupLevel } from "../levels/level_screen.js";
+import { populateLevelsList } from "../levels/levels.js";
 
 //menu button definition
 const menuBtn = document.querySelector(".menu-button");
@@ -18,6 +19,9 @@ menuBtn.addEventListener("click", () => {
     gameScreen.style.display = "block";
     gameScreen.classList.add("fade-in");
     gameScreen.style.animationDuration = "0.4s";
+
+    // refresh levels
+    populateLevelsList(window.gameState.selectedBoxId);
 
     gameScreen.addEventListener("animationend", () => {
         gameScreen.classList.remove("fade-in");

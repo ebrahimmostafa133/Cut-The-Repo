@@ -1,7 +1,7 @@
 // Audio State
 import { populateBoxesList, populateLevelsList } from "./levels/levels.js";
 import { LEVELS_STATUS } from "./levels/levels_info.js";
-import { loadProgress, saveIntroPlayed, hasIntroBeenPlayed, saveMusicState, saveSoundState, loadMusicState, loadSoundState } from "./storage/store.js";
+import { loadProgress, saveIntroPlayed, hasIntroBeenPlayed, saveMusicState, saveSoundState, loadMusicState, loadSoundState, clearProgress } from "./storage/store.js";
 let isSoundOn = loadSoundState();
 let isMusicOn = loadMusicState();
 
@@ -129,15 +129,10 @@ if (noBtn) {
 
 if (yesBtn) {
     yesBtn.addEventListener("click", () => {
-
-        //reset all the game variables
-        //////////////////////////////////
-        //////////////////////////////////
-        //////////////////////////////////
-        //////////////////////////////////
-        //////////////////////////////////
-        //////////////////////////////////
-        //////////////////////////////////
+        
+        clearProgress();
+        window.gameState.levelsStatus = [...LEVELS_STATUS];
+        hasIntroPlayed = false;
 
         resetScreen.style.display = "none";
         document.querySelector(".options-screen").style.display = "none";
@@ -290,3 +285,6 @@ document.addEventListener("wheel", function (e) {
         e.preventDefault();
     }
 }, { passive: false });
+
+
+

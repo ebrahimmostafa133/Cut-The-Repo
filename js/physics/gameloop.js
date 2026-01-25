@@ -1,5 +1,5 @@
-import { init, clear, drawBg, circle, line, rope, img, loadImg, getSize, swipeSlash } from './renderer.js';
-import { gravity, move, ropeLimit, slow } from './physics.js';
+import { init, clear, drawBg, circle, line, rope, img, loadImg, getSize, swipeSlash, bubble, candy as drawCandy } from './renderer.js';
+import { gravity, move, ropeLimit, slow , bubbleLift } from './physics.js';
 import { absToRelX, absToRelY } from './coords.js';
 import { setGameObjects, recalculatePositions } from './resize.js';
 import { checkForCollsions } from './collisions.js';
@@ -12,6 +12,8 @@ let candy = null;
 let ropes = [];
 let starsRel = [];
 let frog = null;
+let bubbles = [];
+let attachedBubble = null;
 
 let starImg = null;
 let frogImg = null;
@@ -53,8 +55,8 @@ function setup(levelData = null) {
     }));
 
     candy = {
-        rx: primary.anchorX,
-        ry: primary.anchorY + primary.lenRel,
+        rx: levelData.candy?.x ?? primary.anchorX,
+        ry: levelData.candy?.y ?? (primary.anchorY + primary.lenRel),
         x: 0,
         y: 0,
         vx: 0,
@@ -79,9 +81,20 @@ function setup(levelData = null) {
         r: levelData.frog.r
     };
 
+    bubbles = levelData.bubbles ? levelData.bubbles.map(b => ({
+        rx: b.x,
+        ry: b.y,
+        x: 0,
+        y: 0,
+        r: b.r || 45,
+        popped: false
+    })) : [];
+
+    attachedBubble = null;
+
     swipePath = [];
 
-    setGameObjects(candy, ropes, starsRel, frog);
+    setGameObjects(candy, ropes, starsRel, frog, bubbles);
     recalculatePositions();
 }
 
@@ -94,11 +107,19 @@ function update(dt) {
     // Check if all ropes are cut
     const allCut = ropes.every(r => r.cut);
 
-    gravity(candy, dt);
+    if (attachedBubble && !attachedBubble.popped) {
+        bubbleLift(candy, dt);
+        candy.vx *= 0.99;
+    }
+    else {
+        gravity(candy, dt);
+    }
 
     move(candy, dt);
+    moveBubbleWithCandy();
+
     
-    const collisionResult = checkForCollsions(candy, starsRel, frog);
+    const collisionResult = checkForCollsions(candy, starsRel, frog, bubbles);
 
     if (collisionResult.frogHit) {
         endGame(true);   // WIN
@@ -108,6 +129,11 @@ function update(dt) {
     if (isCandyLost()) {
         endGame(false);  // OOPS
         return;
+    }
+
+    if (!attachedBubble && collisionResult.bubbleHit) {
+        attachedBubble = collisionResult.bubbleHit;
+        candy.vy *= 0.60; // TODO: check if it looks smooth
     }
 
     // Only apply rope constraints if not all cut
@@ -193,9 +219,10 @@ function draw() {
 
     // Draw ropes
     ropes.forEach(r => {
+        circle(r.anchor.x, r.anchor.y, 12, '#2d6a8a');  // outer dark blue
+        circle(r.anchor.x, r.anchor.y, 8, '#5bb8d9');   // inner light blue
+        circle(r.anchor.x, r.anchor.y, 2, '#ffffffff');   // small black center
         if (!r.cut) {
-            circle(r.anchor.x, r.anchor.y, 10, '#4AA3DF');
-            // Calculate sag based on rope length
             const sag = Math.min(r.len * 0.5, 80);
             rope(r.anchor.x, r.anchor.y, candy.x, candy.y, sag, '#8B4513', 4);
         }
@@ -203,7 +230,7 @@ function draw() {
 
     // Draw candy
     if (candy) {
-        circle(candy.x, candy.y, candy.r, '#FF6B6B');
+        drawCandy(candy.x, candy.y, candy.r);
     }
 
     // Draw stars
@@ -214,6 +241,13 @@ function draw() {
             } else {
                 circle(s.x, s.y, s.r, '#FFD700');
             }
+        }
+    });
+
+    // Draw bubbles
+    bubbles.forEach(b => {
+        if (!b.popped) {
+            bubble(b.x, b.y, b.r);
         }
     });
 
@@ -286,6 +320,7 @@ export async function start(levelData) {
     const canvas = document.getElementById('game-canvas');
 
     canvas.addEventListener('mousedown', (e) => {
+        checkForBubblePopOnClick(e.clientX, e.clientY);
         isDrawing = true;
         swipePath = [{ x: e.clientX, y: e.clientY }];
     });
@@ -348,13 +383,32 @@ export function resume() {
 
 function isCandyLost() {
     const { h } = getSize();
-    return candy.y > h + 100;  // fell below screen
+    return candy.y > h + 100 || candy.y < -100;;  // fell below screen or went too high
 }
 
 // Export for external use (Zeyad's input.js)
 export function cutRopeAt(mouseX, mouseY) {
     swipePath.push({ x: mouseX, y: mouseY });
     checkSwipeCuts();
+}
+
+function checkForBubblePopOnClick(clickedX, clickedY) {
+    if (attachedBubble && !attachedBubble.popped) {
+        const dx = attachedBubble.x - clickedX;
+        const dy = attachedBubble.y - clickedY;
+        const distSq = dx * dx + dy * dy;
+        if (distSq < attachedBubble.r * attachedBubble.r) {
+            attachedBubble.popped = true;
+            attachedBubble = null;
+        }
+    }
+}
+
+function moveBubbleWithCandy() {
+    if (attachedBubble && !attachedBubble.popped) {
+        attachedBubble.x = candy.x;
+        attachedBubble.y = candy.y;
+    }
 }
 
 function endGame(won) {

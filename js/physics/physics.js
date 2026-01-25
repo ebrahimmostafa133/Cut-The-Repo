@@ -1,8 +1,13 @@
 export const G = 980;
 export const DAMP = 0.998;
+export const BUBBLE_LEFT = 150;
 
 export function gravity(obj, dt) {
     obj.vy += G * dt;
+}
+
+export function bubbleLift(obj, dt) {
+     obj.vy -= BUBBLE_LEFT * dt;
 }
 
 export function move(obj, dt) {

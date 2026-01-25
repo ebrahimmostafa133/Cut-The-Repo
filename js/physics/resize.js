@@ -5,12 +5,14 @@ let candy = null;
 let ropes = [];
 let starsRel = [];
 let frog = null;
+let bubbles = [];
 
-export function setGameObjects(candyRef, ropesRef, starsRef, frogRef) {
+export function setGameObjects(candyRef, ropesRef, starsRef, frogRef, bubblesRef = []) {
     candy = candyRef;
     ropes = ropesRef;
     starsRel = starsRef;
     frog = frogRef;
+    bubbles = bubblesRef;
 }
 
 //when resize happens
@@ -29,6 +31,12 @@ export function recalculatePositions() {
         candy.y = relToAbsY(candy.ry, h);
     }
 
+    if (bubbles) {
+        bubbles.forEach(bubble => {
+            bubble.x = relToAbsX(bubble.rx, w);
+            bubble.y = relToAbsY(bubble.ry, h);
+        });
+    }
  
     starsRel.forEach(star => {
         star.x = relToAbsX(star.rx, w);
