@@ -55,8 +55,8 @@ function setup(levelData = null) {
     }));
 
     candy = {
-        rx: primary.anchorX,
-        ry: primary.anchorY + primary.lenRel,
+        rx: levelData.candy?.x ?? primary.anchorX,
+        ry: levelData.candy?.y ?? (primary.anchorY + primary.lenRel),
         x: 0,
         y: 0,
         vx: 0,
@@ -109,6 +109,7 @@ function update(dt) {
 
     if (attachedBubble && !attachedBubble.popped) {
         bubbleLift(candy, dt);
+        candy.vx *= 0.99;
     }
     else {
         gravity(candy, dt);
