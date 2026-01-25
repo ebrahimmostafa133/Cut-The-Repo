@@ -73,3 +73,15 @@ function transitionToCompleteScreen() {
     showCompleteScreen();
 
 }
+
+// run star collection sounds
+const starsCollectedAudio = [
+    new Audio("./audio/star_1.mp3"),
+    new Audio("./audio/star_2.mp3"),
+    new Audio("./audio/star_3.mp3")
+];
+
+window.addEventListener("StarGot", (e) => {
+    console.log(e);
+    starsCollectedAudio[e.detail.starsCollected-1].play();
+})
