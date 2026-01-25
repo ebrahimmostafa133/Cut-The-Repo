@@ -208,6 +208,11 @@ const leftArrow = document.querySelector(".arrow-left");
 const rightArrow = document.querySelector(".arrow-right");
 let currentLevelIndex = 0;
 
+export function setCurrentBoxIndex(index)
+{
+    currentLevelIndex = index;
+    updateSlider();
+}
 function updateSlider() {
     // Hide all, show current
     boxes.forEach((box, index) => {

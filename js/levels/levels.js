@@ -1,6 +1,7 @@
 // Use distinct variable names to avoid conflicts with global scope (if any)
 import { LEVELS_INFO } from "./levels_info.js";
 import { setupLevel } from "./level_screen.js";
+import { setCurrentBoxIndex } from "../index.js";
 const boxes = LEVELS_INFO.boxes;
 const levels = boxes.flatMap(box => box.levels);
 const boxesListElement = document.querySelector("div.slider-container")
@@ -182,6 +183,8 @@ export function advanceCurrentLevel()
     if(nextLevel != undefined)
     {
         window.gameState.currentLevel = nextLevel;
+        window.gameState.selectedBoxId = boxes.find(box => box.levels.some(l => l.id == nextLevel.id)).id;
+        setCurrentBoxIndex(window.gameState.selectedBoxId);
         return true;
     }
     window.gameState.currentLevel = null;
