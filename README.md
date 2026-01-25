@@ -16,7 +16,7 @@
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![Canvas](https://img.shields.io/badge/Canvas_API-FF6F00?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
 
-[🎮 Click here to try it out](https://cut-the-ropee.netlify.app)
+[![🎮 Play Now!](https://img.shields.io/badge/🎮_PLAY_NOW!-Click_to_Play-FF6B6B?style=for-the-badge&labelColor=4ECDC4)](https://cut-the-ropee.netlify.app)
 
 ![Om Nom Happy](./images/happyOmnom.png)
 
