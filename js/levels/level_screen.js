@@ -17,20 +17,17 @@ export function setupLevel() {
 
 window.addEventListener("EndLevel", (e) => {
     const { won, starsCollected } = e.detail;
-
+    levelScreenElement.style.display = "none";
     if (won) {
-        levelScreenElement.style.display = "none";
-        // transition to statesScreen;
+        // transition to wonScreen;
         transitionToWonScreen(starsCollected);
         updateLevelStatus(starsCollected);
-
         //play win sound
         playAudio(winAudio);
     }
     else
     {
-        // restart the game after a brief wait
-        setTimeout(setupLevel, 500);
+        transitionToLoseScreen(starsCollected);
     }
 })
 wonScreenNextButton.addEventListener("click", () => {
@@ -55,10 +52,12 @@ function updateLevelStatus(starsCollected) {
     saveProgress();
 }
 
-function transitionToWonScreen(starsCollected) {
+function transitionToLoseScreen(starsCollected) {
 
 
     statesScreenElement.style.display = 'block';
+    statesScreenElement.querySelector('.state-win').style.display = 'none';
+    statesScreenElement.querySelector('.state-lose').style.display = 'flex';
     statesScreenElement.style.opacity = '0';
     statesScreenElement.offsetHeight; // trigger reflow
     statesScreenElement.style.transition = 'opacity 0.5s ease-in';
@@ -69,6 +68,8 @@ function transitionToWonScreen(starsCollected) {
 
 
     statesScreenElement.style.display = 'block';
+    statesScreenElement.querySelector('.state-win').style.display = 'flex';
+    statesScreenElement.querySelector('.state-lose').style.display = 'none';
     statesScreenElement.style.opacity = '0';
     statesScreenElement.offsetHeight; // trigger reflow
     statesScreenElement.style.transition = 'opacity 0.5s ease-in';
