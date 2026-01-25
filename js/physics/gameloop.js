@@ -219,9 +219,10 @@ function draw() {
 
     // Draw ropes
     ropes.forEach(r => {
+        circle(r.anchor.x, r.anchor.y, 12, '#2d6a8a');  // outer dark blue
+        circle(r.anchor.x, r.anchor.y, 8, '#5bb8d9');   // inner light blue
+        circle(r.anchor.x, r.anchor.y, 2, '#ffffffff');   // small black center
         if (!r.cut) {
-            circle(r.anchor.x, r.anchor.y, 10, '#4AA3DF');
-            // Calculate sag based on rope length
             const sag = Math.min(r.len * 0.5, 80);
             rope(r.anchor.x, r.anchor.y, candy.x, candy.y, sag, '#8B4513', 4);
         }
