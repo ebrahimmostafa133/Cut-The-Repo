@@ -16,7 +16,7 @@
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![Canvas](https://img.shields.io/badge/Canvas_API-FF6F00?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
 
-[🎮 Play Live Demo](https://ebrahimmostafa133.github.io/Cut-The-Repo/) • [📝 Report Bug](https://github.com/ebrahimmostafa133/Cut-The-Repo/issues) • [✨ Request Feature](https://github.com/ebrahimmostafa133/Cut-The-Repo/issues)
+[🎮 Click here to try it out](https://cut-the-ropee.netlify.app)
 
 ![Om Nom Happy](./images/happyOmnom.png)
 
@@ -47,7 +47,7 @@
 
 | Start Screen                            | Level Selection                         | Gameplay                              |
 | -------------------------------------- | -------------------------------------- | ------------------------------------ |
-| ![Start](./images/startbg.jpg) | ![Levels](./images/menubg.jpg) | ![Game](./images/bgr_01_p1.jpg) |
+| ![Start](./images/logo.png) | ![Levels](./images/selectLevel.png) | ![Game](./images/gameplay.png) |
 
 </div>
 
@@ -194,23 +194,21 @@ This project was developed by:
 
 - 🔧 **Collision Precision:** Fine-tuning star and frog hitboxes.
 - 🔧 **Rope Behavior:** Ensuring realistic swinging and tension.
-- 🔧 **Cross-Browser Video:** Handling autoplay policies for the intro.
 
 ---
 
 ## 🔮 Future Enhancements
 
-- [ ] **Level Editor:** Allow users to create and share their own levels.
-- [ ] **More Obstacles:** Spiders, air cushions, and moving anchors.
+- [ ] **More Obstacles:** traps, air cushions, and moving anchors.
 - [ ] **New Boxes:** Magic Box, Valentine Box, and more!
 - [ ] **Global Leaderboard:** Compete with players worldwide.
-- [ ] **Mobile App:** Porting to Capacitor or React Native.
+- [ ] **Mobile Support:** Like the OG real game we grew up with
 
 ---
 
 ## � License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This is a non-commercial, educational project. Any use of game assets is purely out of love and nostalgia. We extend our heartfelt thanks to ZeptoLab for creating such cherished memories.
 
 ---
 
@@ -224,8 +222,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**Made with ❤️ for the Love of Gaming**
-
-[⬆ back to top](#top)
+**ITI Open Source Track - INTAKE 46 ❤️**
 
 </div>
