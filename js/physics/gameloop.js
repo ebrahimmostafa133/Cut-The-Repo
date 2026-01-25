@@ -319,7 +319,6 @@ export async function start(levelData) {
     frogAnimationPlayer.animations['idle'] = frogIdleAnimatedSprite;
     frogAnimationPlayer.defaultAnimation = 'idle';
     frogAnimationPlayer.animations['eating'] = frogEatingAnimatedSprite;
-    frogAnimationPlayer.play('eating');
     // Wait for next animation frame AND ensure canvas has size
     const waitForCanvas = () => {
         return new Promise(resolve => {
