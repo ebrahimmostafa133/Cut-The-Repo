@@ -261,44 +261,13 @@ const LEVELS_INFO = {
 
     ]
 }
-const LEVELS_STATUS = [
-    {
-        id: 1, status: "unlocked", stars: 0
-    },
-    {
-        id: 2, status: "unlocked", stars: 0
-    },
-    {
-        id: 3, status: "unlocked", stars: 0
-    },
-    {
-        id: 4, status: "unlocked", stars: 0
-    },
-    {
-        id: 5, status: "unlocked", stars: 0
-    },
-    {
-        id: 6, status: "unlocked", stars: 0
-    },
-    {
-        id: 7, status: "unlocked", stars: 0
-    },
-    {
-        id: 8, status: "unlocked", stars: 0
-    },
-    {
-        id: 9, status: "unlocked", stars: 0
-    },
-    {
-        id: 10, status: "unlocked", stars: 0
-    },
-    {
-        id: 11, status: "unlocked", stars: 0
-    },
-    {
-        id: 12, status: "unlocked", stars: 0
-    }
 
-]
+const LEVELS_STATUS = LEVELS_INFO.boxes
+    .flatMap(box => box.levels)
+    .map((level, index) => ({
+        id: level.id,
+        status: index === 0 ? "unlocked" : "locked",
+        stars: 0
+    }));
 
 export { LEVELS_INFO, LEVELS_STATUS };
