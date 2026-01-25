@@ -96,6 +96,8 @@ function setup(levelData = null) {
     })) : [];
 
     attachedBubble = null;
+    isCandyEaten = false;
+    frogAnimationPlayer.play('idle');
 
     swipePath = [];
 
@@ -319,6 +321,7 @@ export async function start(levelData) {
     frogAnimationPlayer.animations['idle'] = frogIdleAnimatedSprite;
     frogAnimationPlayer.defaultAnimation = 'idle';
     frogAnimationPlayer.animations['eating'] = frogEatingAnimatedSprite;
+    frogAnimationPlayer.play('idle');
     // Wait for next animation frame AND ensure canvas has size
     const waitForCanvas = () => {
         return new Promise(resolve => {
