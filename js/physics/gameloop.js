@@ -129,7 +129,8 @@ function update(dt) {
     if (!isCandyEaten && collisionResult.frogHit) {
         frogAnimationPlayer.play("eating");
         isCandyEaten = true;
-
+        if(attachedBubble)
+            attachedBubble.popped = true;
         setTimeout(() => {
             endGame(true);   // WIN
         }, 1000);
