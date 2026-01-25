@@ -165,8 +165,97 @@ const LEVELS_INFO = {
             bgUrl: "../images/box3_bgd.png",
             gameBgUrl: "../images/bgr_03_p1.jpg",
             levels: [
-                { id: 8, name: "Level 8", difficulty: "medium" },
-                { id: 9, name: "Level 9", difficulty: "hard" }
+                {
+                    id: 9, name: "Level 9", difficulty: "medium",
+                    "physics": {
+                        ropes: [
+                            { anchorX: 0.50, anchorY: 0.17, lenRel: 0.67},
+                            { anchorX: 0.40, anchorY: 0.17, lenRel: .77},
+                           
+                        ],
+                        candy: { x: 0.65, y: 0.85 },
+                        stars: [
+                            { x: 0.40, y: 0.50 },
+                            { x: 0.40, y: 0.55 },
+                            { x: 0.50, y: 0.93 }
+                        ],
+                        bubbles: [
+                            { x: 0.43, y: 0.91, r: 34 },
+                            { x: 0.50, y: 0.93, r: 34 },
+                            { x: 0.57, y: 0.91, r: 34 },
+                        ],
+                        frog: { x: 0.40, y: 0.10, r: 50 }
+                    }
+                },
+                 {
+                    id: 10, name: "Level 10", difficulty: "medium",
+                    "physics": {
+                        ropes: [
+                            { anchorX: 0.40, anchorY: 0.50, lenRel: 0.30},
+                            { anchorX: 0.40, anchorY: 0.60, lenRel: .30},
+                            { anchorX: 0.60, anchorY: 0.50, lenRel: .30},
+                            { anchorX: 0.60, anchorY: 0.60, lenRel: .3},
+                           
+                        ],
+                        candy: { x: 0.5, y: 0.5 },
+                        stars: [
+                            { x: 0.50, y: 0.19 },
+                            { x: 0.55, y: 0.33 },
+                            { x: 0.50, y: 0.80 }
+                        ],
+                        bubbles: [
+                            { x: 0.50, y: 0.50, r: 34 },
+                            { x: 0.50, y: 0.60, r: 34 },
+                        ],
+                        frog: { x: 0.50, y: 0.10, r: 50 }
+                    }
+                },
+                {
+                    id: 11, name: "Level 11", difficulty: "medium",
+                    "physics": {
+                        ropes: [
+                            { anchorX: 0.40, anchorY: 0.30, lenRel: 0.20},
+                            { anchorX: 0.60, anchorY: 0.30, lenRel: .20},
+                            { anchorX: 0.50, anchorY: 0.50, lenRel: .20},
+                           
+                        ],
+                        candy: { x: 0.5, y: 0.5 },
+                        stars: [
+                            { x: 0.50, y: 0.19 },
+                            { x: 0.40, y: 0.52 },
+                            { x: 0.60, y: 0.52 }
+                        ],
+                        bubbles: [
+                            { x: 0.40, y: 0.52, r: 34 },
+                            { x: 0.60, y: 0.52, r: 34 },
+                        ],
+                        frog: { x: 0.50, y: 0.90, r: 50 }
+                    }
+                },
+                {
+                    id: 12, name: "Level 12", difficulty: "medium",
+                    "physics": {
+                        ropes: [
+                            { anchorX: 0.40, anchorY: 0.30, lenRel: 0.25},
+                            { anchorX: 0.40, anchorY: 0.40, lenRel: .30},
+                            { anchorX: 0.40, anchorY: 0.50, lenRel: .35},
+                            { anchorX: 0.60, anchorY: 0.30, lenRel: 0.25},
+                            { anchorX: 0.60, anchorY: 0.40, lenRel: .30},
+                            { anchorX: 0.60, anchorY: 0.50, lenRel: .35},
+                           
+                        ],
+                        candy: { x: 0.5, y: 0.5 },
+                        stars: [
+                            { x: 0.42, y: 0.78 },
+                            { x: 0.50, y: 0.60 },
+                            { x: 0.50, y: 0.90 }
+                        ],
+                        bubbles: [
+                            { x: 0.50, y: 0.90, r: 34 },
+                        ],
+                        frog: { x: 0.50, y: 0.10, r: 50 }
+                    }
+                },
             ]
         }
 
@@ -177,28 +266,37 @@ const LEVELS_STATUS = [
         id: 1, status: "unlocked", stars: 0
     },
     {
-        id: 2, status: "locked", stars: 0
+        id: 2, status: "unlocked", stars: 0
     },
     {
-        id: 3, status: "locked", stars: 0
+        id: 3, status: "unlocked", stars: 0
     },
     {
-        id: 4, status: "locked", stars: 0
+        id: 4, status: "unlocked", stars: 0
     },
     {
-        id: 5, status: "locked", stars: 0
+        id: 5, status: "unlocked", stars: 0
     },
     {
-        id: 6, status: "locked", stars: 0
+        id: 6, status: "unlocked", stars: 0
     },
     {
-        id: 7, status: "locked", stars: 0
+        id: 7, status: "unlocked", stars: 0
     },
     {
-        id: 8, status: "locked", stars: 0
+        id: 8, status: "unlocked", stars: 0
     },
     {
-        id: 9, status: "locked", stars: 0
+        id: 9, status: "unlocked", stars: 0
+    },
+    {
+        id: 10, status: "unlocked", stars: 0
+    },
+    {
+        id: 11, status: "unlocked", stars: 0
+    },
+    {
+        id: 12, status: "unlocked", stars: 0
     }
 
 ]
