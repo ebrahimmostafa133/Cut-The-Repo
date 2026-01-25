@@ -12,7 +12,7 @@ const LEVELS_INFO = {
                     id: 1, name: "Level 1", difficulty: "easy",
                     "physics": {
                         ropes: [
-                            { anchorX: 0.50, anchorY: 0.08, lenRel: 0.35 }
+                            { anchorX: 0.50, anchorY: 0.08, lenRel: 0.30 }
                         ],
                         stars: [
                             { x: 0.50, y: 0.50 },
@@ -22,14 +22,14 @@ const LEVELS_INFO = {
                         frog: { x: 0.50, y: 0.88, r: 50 }
                     }
                 },
-                // Level 1-2: 
+                // Level 1-2:
                 {
                     id: 2, name: "Level 2", difficulty: "easy",
                     "physics": {
                         ropes: [
                             { anchorX: 0.30, anchorY: 0.05, lenRel: 0.25 },
                             { anchorX: 0.50, anchorY: 0.04, lenRel: 0.50 },
-                            { anchorX: 0.70, anchorY: 0.05, lenRel: 0.55 }
+                            { anchorX: 0.70, anchorY: 0.05, lenRel: 0.80 }
                         ],
                         stars: [
                             { x: 0.35, y: 0.40 },
@@ -50,7 +50,7 @@ const LEVELS_INFO = {
                         ],
                         stars: [
                             { x: 0.43, y: 0.35 },
-                            { x: 0.45, y: 0.55 },
+                            { x: 0.41, y: 0.55 },
                             { x: 0.50, y: 0.72 }
                         ],
                         frog: { x: 0.60, y: 0.72, r: 50 }
@@ -73,24 +73,6 @@ const LEVELS_INFO = {
                         ],
                         frog: { x: 0.60, y: 0.72, r: 50 }
                     }
-                },
-                // Level 1-5: Advanced - multiple ropes, precision needed
-                {
-                    id: 5, name: "Level 5", difficulty: "hard",
-                    "physics": {
-                        ropes: [
-                            { anchorX: 0.06, anchorY: 0.06, lenRel: 0.28 },
-                            { anchorX: 0.50, anchorY: 0.33, lenRel: 0.50 },
-                            { anchorX: 0.7, anchorY: 0.77, lenRel: 0.50 },
-                            { anchorX: 0.68, anchorY: 0.06, lenRel: 0.55 }
-                        ],
-                        stars: [
-                            { x: 0.38, y: 0.42 },
-                            { x: 0.50, y: 0.55 },
-                            { x: 0.50, y: 0.70 }
-                        ],
-                        frog: { x: 0.50, y: 0.88, r: 50 }
-                    }
                 }
             ]
         },
@@ -101,34 +83,77 @@ const LEVELS_INFO = {
             gameBgUrl: "../images/bgr_02_p1.jpg",
             levels: [
                 {
-                    id: 6, name: "Level 6", difficulty: "easy",
+                    id: 5, name: "Level 5", difficulty: "easy",
                     "physics": {
                         ropes: [
-                            { anchorX: 0.35, anchorY: 0.05, lenRel: 0.28 },
-                            { anchorX: 0.65, anchorY: 0.04, lenRel: 0.50 }
+                            { anchorX: 0.55, anchorY: 0.50, lenRel: 0.28 },
+                            { anchorX: 0.45, anchorY: 0.30, lenRel: 0.20 }
                         ],
                         stars: [
-                            { x: 0.38, y: 0.42 },
-                            { x: 0.50, y: 0.58 },
-                            { x: 0.50, y: 0.72 }
+                            { x: 0.45, y: 0.60 },
+                            { x: 0.55, y: 0.40 },
+                            { x: 0.55, y: 0.30 }
                         ],
-                        frog: { x: 0.5, y: 0.93, r: 50 }
+                        bubbles: [
+                            { x: 0.45, y: 0.70, r: 34 }
+                        ],
+                        frog: { x: 0.55, y: 0.93, r: 50 }, 
+                    }
+                },
+                {
+                    id: 6, name: "Level 6", difficulty: "medium",
+                    "physics": {
+                        ropes: [
+                            { anchorX: 0.50, anchorY: 0.20, lenRel: 0.20 }
+                        ],
+                        stars: [
+                            { x: 0.50, y: 0.10 },
+                            { x: 0.50, y: 0.55 },
+                            { x: 0.50, y: 0.70 }
+                        ],
+                        bubbles: [
+                            { x: 0.50, y: 0.55, r: 34 },
+                        ],
+                        frog: { x: 0.50, y: 0.88, r: 50 }
                     }
                 },
                 {
                     id: 7, name: "Level 7", difficulty: "medium",
                     "physics": {
                         ropes: [
-                            { anchorX: 0.35, anchorY: 0.06, lenRel: 0.28 },
-                            { anchorX: 0.50, anchorY: 0.04, lenRel: 0.48 },
-                            { anchorX: 0.65, anchorY: 0.06, lenRel: 0.55 }
+                            { anchorX: 0.50, anchorY: 0.05, lenRel: 0.30 },
+                            { anchorX: 0.50, anchorY: 0.50, lenRel: .30}
                         ],
+                        candy: { x: 0.80, y: 0.20 },
                         stars: [
-                            { x: 0.38, y: 0.42 },
-                            { x: 0.50, y: 0.55 },
-                            { x: 0.50, y: 0.70 }
+                            { x: 0.40, y: 0.50 },
+                            { x: 0.65, y: 0.50 },
+                            { x: 0.50, y: 0.03 }
                         ],
-                        frog: { x: 0.50, y: 0.88, r: 50 }
+                        bubbles: [
+                            { x: 0.60, y: 0.80, r: 34 },
+                        ],
+                        frog: { x: 0.50, y: 0.90, r: 50 }
+                    }
+                },
+                 {
+                    id: 8, name: "Level 8", difficulty: "medium",
+                    "physics": {
+                        ropes: [
+                            { anchorX: 0.50, anchorY: 0.17, lenRel: 0.67},
+                            { anchorX: 0.40, anchorY: 0.80, lenRel: .30},
+                            { anchorX: 0.55, anchorY: 0.60, lenRel: .30}
+                        ],
+                        candy: { x: 0.80, y: 0.20 },
+                        stars: [
+                            { x: 0.40, y: 0.50 },
+                            { x: 0.40, y: 0.55 },
+                            { x: 0.50, y: 0.93 }
+                        ],
+                        bubbles: [
+                            { x: 0.50, y: 0.93, r: 34 },
+                        ],
+                        frog: { x: 0.50, y: 0.15, r: 50 }
                     }
                 },
 

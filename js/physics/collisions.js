@@ -15,12 +15,12 @@ function checkStarCollisions(candy, stars){
 }
 
 function checkFrogCollision(candy, frog){
-    return circlesCollide(candy,frog);
+    return circlesCollide(candy,frog,.9);
 }
 
 function checkBubblesCollision(candy, bubbles){
     for (let i = 0; i < bubbles.length; i++) {
-        if (!bubbles[i].popped && circlesCollide(candy, bubbles[i],0.5)) {
+        if (!bubbles[i].popped && circlesCollide(candy, bubbles[i],0.9)) {
             return bubbles[i];
         }
     }
