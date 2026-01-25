@@ -15,15 +15,25 @@ function checkStarCollisions(candy, stars){
 }
 
 function checkFrogCollision(candy, frog){
-    return circlesCollide(candy,frog);
+    return circlesCollide(candy,frog,.9);
+}
+
+function checkBubblesCollision(candy, bubbles){
+    for (let i = 0; i < bubbles.length; i++) {
+        if (!bubbles[i].popped && circlesCollide(candy, bubbles[i],0.9)) {
+            return bubbles[i];
+        }
+    }
+    return null;
 }
 
 
-function checkForCollsions(candy, stars , frog){
+function checkForCollsions(candy, stars , frog,bubbles = []){
     
     checkStarCollisions(candy, stars);
     return{
         frogHit: checkFrogCollision(candy, frog),
+        bubbleHit: checkBubblesCollision(candy, bubbles),
         //TODO: Add bubble and dynamic anchors and traps later
     };
 }
