@@ -288,3 +288,10 @@ document.addEventListener("wheel", function (e) {
 
 
 
+export function playAudio(audio)
+{
+    if(isSoundOn)
+    {
+        audio.play();
+    }
+}

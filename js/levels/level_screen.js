@@ -1,5 +1,6 @@
 // this files handles setup up canvas eac
 import { start, stop } from "../physics/gameloop.js";
+import { playAudio } from "../index.js";
 import { showCompleteScreen, hideCompleteScreen } from "./complete.js";
 import { LEVELS_INFO } from "./levels_info.js";
 import { advanceCurrentLevel } from "./levels.js";
@@ -24,7 +25,7 @@ window.addEventListener("EndLevel", (e) => {
         updateLevelStatus(starsCollected);
 
         //play win sound
-        winAudio.play();
+        playAudio(winAudio);
     }
     else
     {
@@ -88,11 +89,11 @@ const starsCollectedAudio = [
 
 window.addEventListener("StarGot", (e) => {
     console.log(e);
-    starsCollectedAudio[e.detail.starsCollected-1].play();
+    playAudio(starsCollectedAudio[e.detail.starsCollected-1]);
 })
 
 // play sound when a rope is cut
 const ropeBleakAudio = new Audio("./audio/rope_bleak_1.mp3");
 window.addEventListener("RopeCut", e => {
-    ropeBleakAudio.play();
+    playAudio(ropeBleakAudio);
 })
