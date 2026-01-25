@@ -341,7 +341,7 @@ export async function start(levelData) {
     paused = false;
     lastT = performance.now();
     frameId = requestAnimationFrame(loop);
-
+    isCandyEaten = false;
     const canvas = document.getElementById('game-canvas');
 
     canvas.addEventListener('mousedown', (e) => {
