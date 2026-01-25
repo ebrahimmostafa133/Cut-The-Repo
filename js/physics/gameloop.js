@@ -1,4 +1,8 @@
 import { init, clear, drawBg, circle, line, rope, img, loadImg, getSize, swipeSlash, bubble, candy as drawCandy } from './renderer.js';
+import { frogIdleAnimatedSpriteCoords,
+        frogAskingForFoodAnimatedSpriteCoords,
+        frogEatingAnimatedSpriteCoords } from '../objects/frog.js';
+import { AnimatedSprite, ANimationPlayer as AnimationPlayer } from '../objects/animation.js';
 import { gravity, move, ropeLimit, slow , bubbleLift } from './physics.js';
 import { absToRelX, absToRelY } from './coords.js';
 import { setGameObjects, recalculatePositions } from './resize.js';
@@ -17,7 +21,7 @@ let attachedBubble = null;
 
 let starImg = null;
 let frogImg = null;
-
+let frogAnimationPlayer = new AnimationPlayer();
 // Swipe tracking for cutting
 let swipePath = [];
 let isDrawing = false;
@@ -151,6 +155,8 @@ function update(dt) {
     const { w, h } = getSize();
     candy.rx = absToRelX(candy.x, w);
     candy.ry = absToRelY(candy.y, h);
+
+    frogAnimationPlayer.update(dt);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -257,7 +263,8 @@ function draw() {
 
     // Draw frog
     if (frogImg) {
-        img(frogImg, frog.x, frog.y, frog.r * 2.4, frog.r * 2.4);
+        // img(frogImg, frog.x, frog.y, frog.r * 2.4, frog.r * 2.4);
+        frogAnimationPlayer.draw(frog.x, frog.y, frog.r * 2.1, frog.r * 2.1);
     } else {
         circle(frog.x, frog.y, frog.r, '#4CAF50');
     }
@@ -298,6 +305,13 @@ export async function start(levelData) {
     try { starImg = await loadImg('./images/star_result_small.png'); } catch (e) { }
     try { frogImg = await loadImg('./images/pin-omnom.png'); } catch (e) { }
 
+
+    let frogIdleAnimatedSprite = await AnimatedSprite.create("./images/char_animations2.png", frogIdleAnimatedSpriteCoords, 15, true)
+    let frogEatingAnimatedSprite = await AnimatedSprite.create("./images/char_animations.png", frogEatingAnimatedSpriteCoords, 30, false)
+
+    frogAnimationPlayer.animations['idle'] = frogIdleAnimatedSprite;
+    frogAnimationPlayer.defaultAnimation = 'idle';
+    frogAnimationPlayer.animations['eating'] = frogEatingAnimatedSprite;
     // Wait for next animation frame AND ensure canvas has size
     const waitForCanvas = () => {
         return new Promise(resolve => {
