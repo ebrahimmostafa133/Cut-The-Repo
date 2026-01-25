@@ -47,6 +47,55 @@ export function circle(x, y, r, color = '#FF6B6B') {
     ctx.closePath();
 }
 
+// Shiny candy with lighting effects
+export function candy(x, y, r) {
+    if (!ctx) return;
+
+    const bodyGradient = ctx.createRadialGradient(x - r * 0.3, y - r * 0.3, 0, x, y, r);
+    bodyGradient.addColorStop(0, '#FF9999');   // Light red center
+    bodyGradient.addColorStop(0.5, '#FF6B6B'); // Mid red
+    bodyGradient.addColorStop(1, '#CC4444');   // Dark red edge
+
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = bodyGradient;
+    ctx.fill();
+    ctx.closePath();
+
+    // outer glow
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.strokeStyle = '#AA3333';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.closePath();
+
+    // shine top l eft
+    ctx.beginPath();
+    ctx.arc(x - r * 0.35, y - r * 0.35, r * 0.3, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    ctx.fill();
+    ctx.closePath();
+
+    //  shine small
+    ctx.beginPath();
+    ctx.arc(x - r * 0.15, y - r * 0.5, r * 0.12, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.fill();
+    ctx.closePath();
+
+    // reflection
+    const reflectGradient = ctx.createRadialGradient(x, y + r * 0.5, 0, x, y + r * 0.5, r * 0.4);
+    reflectGradient.addColorStop(0, 'rgba(255, 200, 200, 0.3)');
+    reflectGradient.addColorStop(1, 'rgba(255, 200, 200, 0)');
+
+    ctx.beginPath();
+    ctx.arc(x, y + r * 0.5, r * 0.4, 0, Math.PI * 2);
+    ctx.fillStyle = reflectGradient;
+    ctx.fill();
+    ctx.closePath();
+}
+
 export function bubble(x, y, r ) {
     if (!ctx) return;
 
