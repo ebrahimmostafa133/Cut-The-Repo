@@ -1,4 +1,4 @@
-import { init, clear, drawBg, circle, line, rope, img, loadImg, getSize, swipeSlash ,bubble } from './renderer.js';
+import { init, clear, drawBg, circle, line, rope, img, loadImg, getSize, swipeSlash, bubble, candy as drawCandy } from './renderer.js';
 import { gravity, move, ropeLimit, slow , bubbleLift } from './physics.js';
 import { absToRelX, absToRelY } from './coords.js';
 import { setGameObjects, recalculatePositions } from './resize.js';
@@ -133,7 +133,7 @@ function update(dt) {
 
     if (!attachedBubble && collisionResult.bubbleHit) {
         attachedBubble = collisionResult.bubbleHit;
-        candy.vy = 0; // TODO: check if it looks smooth
+        candy.vy *= 0.60; // TODO: check if it looks smooth
     }
 
     // Only apply rope constraints if not all cut
@@ -229,7 +229,7 @@ function draw() {
 
     // Draw candy
     if (candy) {
-        circle(candy.x, candy.y, candy.r, '#FF6B6B');
+        drawCandy(candy.x, candy.y, candy.r);
     }
 
     // Draw stars
