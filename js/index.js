@@ -129,7 +129,7 @@ if (noBtn) {
 
 if (yesBtn) {
     yesBtn.addEventListener("click", () => {
-        
+
         clearProgress();
         window.gameState.levelsStatus = [...LEVELS_STATUS];
         hasIntroPlayed = false;
@@ -256,6 +256,15 @@ validBoxesElements.forEach((boxElement, index) => {
 
         document.querySelector(".play-screen").style.display = "none";
         gameScreen.style.display = "block";
+
+        // Change background image based on selected box
+        const bgIndex = index + 1;
+        gameScreen.style.backgroundImage = `
+            url(./images/leveltape.png),
+            url(./images/levelbg${bgIndex}.jpg),
+            url(./images/levelbg${bgIndex}.jpg)
+        `;
+
         populateLevelsList(window.gameState.selectedBoxId);
     });
 })
