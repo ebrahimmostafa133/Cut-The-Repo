@@ -6,8 +6,8 @@ import { LEVELS_INFO } from "./levels_info.js";
 import { advanceCurrentLevel } from "./levels.js";
 import { saveProgress } from "../storage/store.js";
 const levelScreenElement = document.querySelector(`.level1-screen`);
-const wonScreenElement = document.querySelector(`.states-screen`);
-const wonScreenNextButton = wonScreenElement.querySelector("button.next-button")
+const statesScreenElement = document.querySelector(`.states-screen`);
+const wonScreenNextButton = statesScreenElement.querySelector("button.next-button")
 const winAudio = new Audio("./audio/win.mp3");
 
 export function setupLevel() {
@@ -58,16 +58,26 @@ function updateLevelStatus(starsCollected) {
 function transitionToWonScreen(starsCollected) {
 
 
-    wonScreenElement.style.display = 'block';
-    wonScreenElement.style.opacity = '0';
-    wonScreenElement.offsetHeight; // trigger reflow
-    wonScreenElement.style.transition = 'opacity 0.5s ease-in';
-    wonScreenElement.style.opacity = '1';
-    wonScreenElement.querySelector(".star-container").className = `star-container stars-${starsCollected}`;
+    statesScreenElement.style.display = 'block';
+    statesScreenElement.style.opacity = '0';
+    statesScreenElement.offsetHeight; // trigger reflow
+    statesScreenElement.style.transition = 'opacity 0.5s ease-in';
+    statesScreenElement.style.opacity = '1';
+    statesScreenElement.querySelector(".star-container").className = `star-container stars-${starsCollected}`;
+}
+function transitionToWonScreen(starsCollected) {
+
+
+    statesScreenElement.style.display = 'block';
+    statesScreenElement.style.opacity = '0';
+    statesScreenElement.offsetHeight; // trigger reflow
+    statesScreenElement.style.transition = 'opacity 0.5s ease-in';
+    statesScreenElement.style.opacity = '1';
+    statesScreenElement.querySelector(".star-container").className = `star-container stars-${starsCollected}`;
 }
 
 function transitionToNextLevel() {
-    wonScreenElement.style.display = 'none';
+    statesScreenElement.style.display = 'none';
     levelScreenElement.style.display = "block";
     let box = LEVELS_INFO.boxes.find(box => box.levels.some(l => l.id == window.gameState.currentLevel.id));
     levelScreenElement.style.backgroundImage = `url("${box.gameBgUrl}")`;
@@ -75,7 +85,7 @@ function transitionToNextLevel() {
 
 function transitionToCompleteScreen() {
     levelScreenElement.style.display = "none";
-    wonScreenElement.style.display = "none";
+    statesScreenElement.style.display = "none";
     showCompleteScreen();
 
 }
