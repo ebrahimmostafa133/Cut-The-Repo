@@ -47,6 +47,48 @@ export function circle(x, y, r, color = '#FF6B6B') {
     ctx.closePath();
 }
 
+export function bubble(x, y, r ) {
+    if (!ctx) return;
+
+    const gradient = ctx.createRadialGradient(x, y, 0, x, y, r);
+    gradient.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
+    gradient.addColorStop(0.7, 'rgba(200, 230, 255, 0.1)');
+    gradient.addColorStop(1, 'rgba(180, 220, 255, 0.05)');
+
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = gradient;
+    ctx.fill();
+    ctx.closePath();
+
+    //rainbow
+    const rainbow = ctx.createRadialGradient(x - r * 0.4, y - r * 0.3, 0, x - r * 0.2, y - r * 0.1, r * 0.8);
+    rainbow.addColorStop(0, 'rgba(255, 255, 150, 0.6)'); // yellow
+    rainbow.addColorStop(0.3, 'rgba(150, 255, 200, 0.4)'); // green
+    rainbow.addColorStop(0.6, 'rgba(255, 180, 180, 0.2)'); // pink/red
+    rainbow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = rainbow;
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255, 255, 255, .8)';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.closePath();
+
+    //shine highlight
+    ctx.beginPath();
+    ctx.arc(x - r * 0.35, y - r * 0.35, r * 0.25, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+    ctx.fill();
+    ctx.closePath();
+}
+
 export function line(x1, y1, x2, y2, color = '#8B4513', w = 3) {
     if (!ctx) return;
     ctx.beginPath();
