@@ -15,11 +15,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 5vh 20px;
+    box-sizing: border-box;
 }
 
 .logo {
-
-    margin-top: 160px;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -27,6 +27,9 @@
 .logo img {
     animation: fadeIn 2s ease-in-out;
     width: 550px;
+    max-width: 80vw;
+    max-height: 50vh;
+    object-fit: contain;
     display: block;
     margin: 0 auto;
 }
