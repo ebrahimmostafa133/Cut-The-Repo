@@ -90,3 +90,9 @@ window.addEventListener("StarGot", (e) => {
     console.log(e);
     starsCollectedAudio[e.detail.starsCollected-1].play();
 })
+
+// play sound when a rope is cut
+const ropeBleakAudio = new Audio("./audio/rope_bleak_1.mp3");
+window.addEventListener("RopeCut", e => {
+    ropeBleakAudio.play();
+})

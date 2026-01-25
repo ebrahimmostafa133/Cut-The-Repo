@@ -172,6 +172,10 @@ function checkSwipeCuts() {
             )) {
                 rope.cut = true;
                 console.log('Rope cut!');
+                let e = new CustomEvent("RopeCut", {detail: {
+                    rope: rope
+                }});
+                window.dispatchEvent(e);
             }
         }
     });
