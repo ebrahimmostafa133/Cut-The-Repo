@@ -1,0 +1,46 @@
+/* ================================================ */
+/* Level1, Level2, Level3 Screens (Actual Game) */
+/* ================================================ */
+
+.level1-screen,
+.level2-screen,
+.level3-screen {
+    display: none;
+    background-image: url(../images/bgr_01_p1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: none;
+    width: 100%;
+    height: 100vh;
+}
+
+.level-screen-back-button {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    z-index: 20;
+}
+
+.level-screen-restart-button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 20;
+}
+
+.restart-button {
+    background-image: url(../images/buttonsprite.png);
+    background-position: -90px 0;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: transparent;
+    width: 55px;
+    height: 46px;
+    cursor: pointer;
+}
+
+.restart-button:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+}

@@ -3,10 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/index.css">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0">
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/start-screen.css">
+    <link rel="stylesheet" href="./css/options.css">
+    <link rel="stylesheet" href="./css/play-screen.css">
+    <link rel="stylesheet" href="./css/levels.css">
+    <link rel="stylesheet" href="./css/game-screen.css">
+    <link rel="stylesheet" href="./css/states.css">
+    <link rel="stylesheet" href="./css/canvas.css">
+    <link rel="stylesheet" href="./css/stars.css">
+    <link rel="stylesheet" href="./css/complete-screen.css">
     <link rel="stylesheet" href="./css/media.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="./css/all.min.css">
     <title>Cut The Rope</title>
 </head>
 
@@ -17,7 +27,7 @@
         </div>
         <div class="start-screen">
             <div class="logo">
-                <img src="./images/ph_logo.png" alt="logo of the game">
+                <img src="./images/ph_logo.png" alt="logo of the level">
             </div>
             <div class="start-screen-buttons">
                 <button class="play-button">
@@ -55,7 +65,7 @@
         </div>
         <!-- back button -->
         <div class="options-screen-back-button">
-            <button class="back-button">
+            <button class="back-button" data-back-to="main-screen">
 
             </button>
         </div>
@@ -79,9 +89,172 @@
             </div>
         </div>
     </main>
+    <!-- Intro Video Container -->
+    <div class="intro-video">
+        <video id="introVideo" width="100%" height="100%">
+            <source src="./video/intro_1024.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <button class="skip-btn">Skip</button>
+    </div>
+
+    <main class="play-screen">
+        <div class="shadow-img">
+            <img src="./images/shadow.png" alt="rotating shadow">
+        </div>
+
+        <div class="play-screen-content">
+            <!-- Left Arrow -->
+            <button class="arrow-left">
+                <i class="fa-solid fa-caret-left"></i>
+            </button>
+            <!-- Center Box Slider -->
+            <div class="slider-container">
+                <!-- <div class="level-box box-1 active">
+                    <div class="box-label">1. Cardboard Box</div>
+                    <div class="omnom-container">
+                        <img src="./images/pin-omnom.png" alt="Om Nom" class="omnom">
+                    </div>
+                </div>
+
+                <div class="level-box box-2">
+                    <div class="more-text">
+                        <span>Next Level Coming Soon</span>
+                    </div>
+                </div> -->
+            </div>
+
+            <!-- Right Arrow -->
+            <button class="arrow-right">
+                <i class="fa-solid fa-caret-right"></i>
+            </button>
+        </div>
+
+        <!-- Back Button -->
+        <div class="play-screen-back-button">
+            <button class="back-button" data-back-to="main-screen">
+
+            </button>
+        </div>
+    </main>
+
+    <main class="game-screen">
+        <div class="shadow-img">
+            <img src="./images/shadow.png" alt="rotating shadow">
+        </div>
+        <!-- Tape Roll Transition Overlay -->
+        <div class="tape-roll-overlay">
+            <img src="./images/taperoll.png" alt="Tape Roll">
+        </div>
+        <div class="levels-screen">
+            <!-- Level 1: Unlocked -->
+            <div class="level-1 level-item unlocked">
+                <span class="level-number">1</span>
+                <img src="./images/level_bgd.png" alt="level tape" class="level-bg">
+                <div class="level-stars">
+                    <div class="star-display stars-3"></div>
+                </div>
+            </div>
+            <!-- Level 2: Locked -->
+            <div class="level-2 level-item locked">
+                <span class="level-number">2</span>
+                <img src="./images/level_bgd.png" alt="level tape" class="level-bg-lock">
+                <div class="level-stars">
+                    <!-- Stars hidden when locked -->
+                </div>
+            </div>
+            <!-- Level 3: Locked -->
+            <div class="level-3 level-item locked">
+                <span class="level-number">3</span>
+                <img src="./images/level_bgd.png" alt="level tape" class="level-bg-lock">
+                <div class="level-stars">
+                    <!-- Stars hidden when locked -->
+                </div>
+            </div>
+        </div>
+        <div class="game-screen-back-button">
+            <button class="back-button" data-back-to="play-screen">
+            </button>
+        </div>
+
+        <!-- Box Cutter Transition Overlay -->
+        <div class="box-cutter-overlay">
+            <img src="./images/boxcutter.png" alt="Box Cutter">
+        </div>
+    </main>
+
+    <main class="level1-screen">
+        <!-- Canvas Screen (physics engine) -->
+        <canvas id="game-canvas"></canvas>
+        <div class="level-screen-back-button">
+            <button class="back-button">
+            </button>
+        </div>
+        <div class="level-screen-restart-button">
+            <button class="restart-button"></button>
+        </div>
+    </main>
 
 
-    <script src="./js/index.js"></script>
+    <!-- States Screen (win/lose) -->
+    <main class="states-screen">
+        <div class="states-screen-content">
+            <div class="state-lose" style="display: none;">
+                <div class="state-content">
+                    <span>Oops!</span>
+                    <p>you were so close!</p>
+                </div>
+                <div class="state-lose-img">
+                    <img src="./images/crying-om-nom.gif" alt="Om Nom">
+                </div>
+            </div>
+            <div class="state-win">
+                <div class="state-content">
+                    <!-- <p class="zero-stars">passable!</p> -->
+                    <!-- <p class="one-star">not bad!</p> -->
+                    <p class="two-stars">pretty good!</p>
+                    <!-- <p class="three-stars">amazing!</p> -->
+                </div>
+                <div class="star-container stars-2">
+                    <div class="star star-1 "></div>
+                    <div class="star star-2"></div>
+                    <div class="star star-3"></div>
+                </div>
+                <div class="state-win-img">
+                    <img src="./images/happyOmnom.png" alt="Om Nom">
+                </div>
+                <div class="states-screen-next-button">
+                    <button class="next-button">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="states-screen-buttons">
+                <button class="menu-button">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <button class="retry-button">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Complete Screen -->
+    <main class="complete-screen">
+        <span>Congratulations!</span>
+        <p>you have completed all levels</p>
+        <div class="complete-screen-content">
+            <img src="./images/gamecomplete.jpg" alt="Complete">
+        </div>
+        <div class="complete-text">
+            <p>Press Enter to return to Home</p>
+        </div>
+    </main>
+
+    <script type="module" src="./js/index.js"></script>
+    <script type="module" src="./js/physics/gameloop.js"></script>
+    <script type="module" src="./js/states/gameState.js"></script>
 </body>
 
 </html>
