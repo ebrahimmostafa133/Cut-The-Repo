@@ -1,4 +1,8 @@
 import { init, clear, drawBg, circle, line, rope, img, loadImg, getSize, swipeSlash, bubble, candy as drawCandy } from './renderer.js';
+import { frogIdleAnimatedSpriteCoords,
+        frogAskingForFoodAnimatedSpriteCoords,
+        frogEatingAnimatedSpriteCoords } from '../objects/frog.js';
+import { AnimatedSprite, ANimationPlayer as AnimationPlayer } from '../objects/animation.js';
 import { gravity, move, ropeLimit, slow , bubbleLift } from './physics.js';
 import { absToRelX, absToRelY } from './coords.js';
 import { setGameObjects, recalculatePositions } from './resize.js';
@@ -17,11 +21,12 @@ let attachedBubble = null;
 
 let starImg = null;
 let frogImg = null;
-
+let frogAnimationPlayer = new AnimationPlayer();
 // Swipe tracking for cutting
 let swipePath = [];
 let isDrawing = false;
 
+let isCandyEaten = false;
 // ═══════════════════════════════════════════════════════
 // 1. SETUP - reads level data and positions objects
 // ═══════════════════════════════════════════════════════
@@ -91,6 +96,8 @@ function setup(levelData = null) {
     })) : [];
 
     attachedBubble = null;
+    isCandyEaten = false;
+    frogAnimationPlayer.play('idle');
 
     swipePath = [];
 
@@ -121,12 +128,18 @@ function update(dt) {
     
     const collisionResult = checkForCollsions(candy, starsRel, frog, bubbles);
 
-    if (collisionResult.frogHit) {
-        endGame(true);   // WIN
+    if (!isCandyEaten && collisionResult.frogHit) {
+        frogAnimationPlayer.play("eating");
+        isCandyEaten = true;
+        if(attachedBubble)
+            attachedBubble.popped = true;
+        setTimeout(() => {
+            endGame(true);   // WIN
+        }, 1000);
         return;
     }
     
-    if (isCandyLost()) {
+    if (!isCandyEaten && isCandyLost()) {
         endGame(false);  // OOPS
         return;
     }
@@ -151,6 +164,8 @@ function update(dt) {
     const { w, h } = getSize();
     candy.rx = absToRelX(candy.x, w);
     candy.ry = absToRelY(candy.y, h);
+
+    frogAnimationPlayer.update(dt);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -172,6 +187,10 @@ function checkSwipeCuts() {
             )) {
                 rope.cut = true;
                 console.log('Rope cut!');
+                let e = new CustomEvent("RopeCut", {detail: {
+                    rope: rope
+                }});
+                window.dispatchEvent(e);
             }
         }
     });
@@ -229,7 +248,7 @@ function draw() {
     });
 
     // Draw candy
-    if (candy) {
+    if (candy && !isCandyEaten ) {
         drawCandy(candy.x, candy.y, candy.r);
     }
 
@@ -253,7 +272,8 @@ function draw() {
 
     // Draw frog
     if (frogImg) {
-        img(frogImg, frog.x, frog.y, frog.r * 2.4, frog.r * 2.4);
+        // img(frogImg, frog.x, frog.y, frog.r * 2.4, frog.r * 2.4);
+        frogAnimationPlayer.draw(frog.x, frog.y, frog.r * 2.1, frog.r * 2.1);
     } else {
         circle(frog.x, frog.y, frog.r, '#4CAF50');
     }
@@ -294,6 +314,14 @@ export async function start(levelData) {
     try { starImg = await loadImg('./images/star_result_small.png'); } catch (e) { }
     try { frogImg = await loadImg('./images/pin-omnom.png'); } catch (e) { }
 
+
+    let frogIdleAnimatedSprite = await AnimatedSprite.create("./images/char_animations2.png", frogIdleAnimatedSpriteCoords, 15, true)
+    let frogEatingAnimatedSprite = await AnimatedSprite.create("./images/char_animations.png", frogEatingAnimatedSpriteCoords, 30, false)
+
+    frogAnimationPlayer.animations['idle'] = frogIdleAnimatedSprite;
+    frogAnimationPlayer.defaultAnimation = 'idle';
+    frogAnimationPlayer.animations['eating'] = frogEatingAnimatedSprite;
+    frogAnimationPlayer.play('idle');
     // Wait for next animation frame AND ensure canvas has size
     const waitForCanvas = () => {
         return new Promise(resolve => {
@@ -316,7 +344,7 @@ export async function start(levelData) {
     paused = false;
     lastT = performance.now();
     frameId = requestAnimationFrame(loop);
-
+    isCandyEaten = false;
     const canvas = document.getElementById('game-canvas');
 
     canvas.addEventListener('mousedown', (e) => {

@@ -10,7 +10,16 @@ function checkStarCollisions(candy, stars){
 
     stars.forEach(element => {
         if (!element.got) 
+        {
             element.got = circlesCollide(candy,element,1.5);
+            if(element.got)
+            {
+                let e = new CustomEvent("StarGot", {detail:{
+                    starsCollected: stars.reduce((count, s) => count + s.got, 0)
+                }})
+                window.dispatchEvent(e);
+            }
+        }
     });
 }
 
